@@ -12,8 +12,8 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     
-    Future.delayed(const Duration(seconds: 3)).then((value) {
-      Modular.to.navigate("/home");
+    Future.delayed(const Duration(seconds: 4)).then((value) {
+      Modular.to.navigate("/auth");
     });
   }
 
@@ -24,29 +24,7 @@ class _SplashPageState extends State<SplashPage> {
         color: AppThemes.primaryColor,
         height: double.infinity,
         width: double.infinity,
-        child: const Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "MSC",
-                style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                "MC SSH Client",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ),
+        child: const LogoComponent()
       ),
     );
   }

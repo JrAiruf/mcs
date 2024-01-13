@@ -1,0 +1,1 @@
+export 'package:mcs/src/modules/script/presenter/pages/script_page.dart';

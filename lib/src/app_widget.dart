@@ -8,6 +8,7 @@ class AppWidget extends StatelessWidget {
     Modular.setInitialRoute("/splash/");
     return MaterialApp.router(
       routerConfig: Modular.routerConfig,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
