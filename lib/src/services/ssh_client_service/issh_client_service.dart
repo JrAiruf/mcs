@@ -1,6 +1,4 @@
-import 'package:mcs/src/imports.dart';
-
 abstract class ISSHClientService {
-  Future authenticate(AuthEntity authEntity);
+  Future authenticate(Map<String, dynamic> authEntity);
   Future runCommand(String command);
 }

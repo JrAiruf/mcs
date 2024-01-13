@@ -7,10 +7,12 @@ class SSHClientService implements ISSHClientService {
   }
 
   @override
-  Future authenticate(AuthEntity authEntity) async {
-    final client = SSHClient(await SSHSocket.connect(ipServer, 22),
-        username: authEntity.username,
-        onPasswordRequest: () => authEntity.password);
+  Future authenticate(Map<String, dynamic> authMap) async {
+    final client = SSHClient(
+      await SSHSocket.connect(ipServer, 22),
+      username: authMap["username"],
+      onPasswordRequest: () => authMap["password"],
+    );
     final streamList = await client.execute("dir /scripts/");
     // streamList.write(data.convert("auth_session_init"));
     return utf8.decode(await streamList.stdout.first);

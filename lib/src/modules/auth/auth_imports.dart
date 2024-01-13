@@ -1,8 +1,12 @@
 export '../../imports.dart';
 export 'package:mcs/src/modules/auth/domain/entities/auth_entity.dart';
 export 'package:mcs/src/services/ssh_client_service/issh_client_service.dart';
-export 'package:mcs/src/modules/auth/external/interfaces/issh_datasource.dart';
+export 'package:mcs/src/modules/auth/external/interfaces/issh_auth_datasource.dart';
 export 'package:mcs/src/modules/auth/presenter/pages/auth_page.dart';
 export 'presenter/controllers/auth_controller.dart';
 export 'package:mcs/src/modules/auth/presenter/components/login_form.dart';
 export 'package:mcs/src/shared/components/app_button.dart';
+export 'package:mcs/src/modules/auth/domain/usecases/login.dart';
+export 'package:mcs/src/modules/auth/infra/interfaces/iauth_repository.dart';
+export 'package:mcs/src/modules/auth/domain/exceptions/auth_exceptions.dart';
+export 'package:mcs/src/modules/auth/infra/adapters/auth_entity_adapter.dart';
