@@ -8,3 +8,6 @@ export 'package:dartz/dartz.dart' hide State, Evaluation;
 export 'package:mcs/src/modules/script/external/interfaces/iscript_datasource.dart';
 export 'package:mcs/src/modules/script/infra/repositories/script_repository.dart';
 export 'package:mcs/src/modules/script/infra/adapters/script_adapter.dart';
+export 'package:shared_preferences/shared_preferences.dart';
+export 'package:mcs/src/modules/script/external/script_datasource.dart';
+export 'package:mcs/src/modules/script/presenter/cubits/script_cubit.dart';

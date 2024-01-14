@@ -6,4 +6,13 @@ class ScriptModule extends Module {
   void routes(RouteManager r) {
     r.child("/", child: (_) => const ScriptPage());
   }
+
+  @override
+  void binds(Injector i) async {
+    i.addInstance(await SharedPreferences.getInstance());
+    i.addLazySingleton<IScriptDatasource>(ScriptDatasource.new);
+    i.addLazySingleton<IScriptRepository>(ScriptRepository.new);
+    i.addLazySingleton<SaveScript>(SaveScript.new);
+    i.addLazySingleton<ScriptCubit>(ScriptCubit.new);
+  }
 }
