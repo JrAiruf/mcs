@@ -7,6 +7,11 @@ final class SSHAuthDatasource implements ISSHAuthDatasource {
 
   @override
   Future<Map<String, dynamic>> authenticate(Map<String, dynamic>? authEntity) async {
-    return jsonDecode(await _service.authenticate(authEntity!)) as Map<String, dynamic>;
+    try {
+      final authData = jsonDecode(await _service.authenticate(authEntity!)) as Map<String, dynamic>;
+      return authData;
+    } on BaseException catch (e) {
+      rethrow;
+    }
   }
 }

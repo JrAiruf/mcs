@@ -1,26 +1,49 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mcs/src/imports.dart';
+import 'package:mcs/src/modules/auth/external/ssh_auth_datasource.dart';
 import 'package:mcs/src/services/ssh_client_service.dart';
+import 'package:mocktail/mocktail.dart';
+
+import '../../../../mocks/auth_mocks/auth_mocks_classes.dart';
+import '../../../../mocks/auth_mocks/auth_mocks_data.dart';
 
 void main() {
+  late ISSHClientService service;
+  late SSHAuthDatasource datasource;
+  setUp(
+    () {
+      service = SSHClientServiceMock();
+      datasource = SSHAuthDatasource(service);
+    },
+  );
   group(
     'Authenticate function should',
     () {
       test(
-        'save user data in server and return a map containing username and password',
+        'call ssh service to save user data in server and return a map containing username and password',
         () async {
-          final service = SSHClientService();
-          final result = await service.authenticate(
-            {
-              "username": "app",
-              "password": "2nq25nf7",
-            },
+          when(() => service.authenticate(any())).thenAnswer(
+            (_) async => jsonEncode(AuthMockData.authMap),
           );
-          print(result);
+
+          final result = await datasource.authenticate(
+            {"username": "username", "password": "password"},
+          );
+          expect(result, isA<Map<String, dynamic>>());
+          expect(result["username"], equals("app"));
+          expect(result["password"], equals("2nq25nf7"));
         },
       );
       test(
-        'Authenticate function should',
-        () {},
+        'throw an AuthException due to unexisting user',
+        () async {
+          when(() => service.authenticate(any())).thenThrow(AuthException("Não foi possível realizar o login"));
+          expect(
+              () async => await datasource.authenticate(
+                    {"username": "username", "password": "password"},
+                  ),
+              throwsA(isA<AuthException>()));
+        },
       );
     },
   );
