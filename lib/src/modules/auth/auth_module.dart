@@ -1,4 +1,5 @@
 import 'package:mcs/src/imports.dart';
+export 'package:mcs/src/modules/auth/auth_imports.dart';
 
 class AuthModule extends Module {
   @override

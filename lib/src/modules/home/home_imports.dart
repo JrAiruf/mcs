@@ -1,1 +1,2 @@
-export 'package:mcs/src/shared/components/text_field_label.dart';
+export '../home/home_imports.dart';
+export 'package:mcs/src/modules/home/presenter/pages/home_page.dart';

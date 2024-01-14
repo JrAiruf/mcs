@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:mcs/src/imports.dart';
-import 'package:mcs/src/modules/auth/infra/interfaces/iauth_repository.dart';
 
 class Login {
   Login(IAuthRepository repository) : _repository = repository;

@@ -10,6 +10,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 25),
+                SizedBox(height: height * 0.04),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -44,35 +45,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 const SizedBox(height: 15),
-                SizedBox(
-                  width: double.infinity,
-                  child: Card(
-                    color: AppThemes.secondaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const TextFieldLabel(label: "Nome do Script"),
-                          AppTextField(),
-                          const TextFieldLabel(label: "Comando Script"),
-                          AppTextField(),
-                          const SizedBox(height: 20),
-                          const AppButton(
-                            backgroundColor: AppThemes.primaryColor,
-                            text: "Salvar Script",
-                            primaryColor: AppThemes.contrastColor,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                const CreateScriptForm(),
                 const SizedBox(height: 15),
                 const Text(
                   "Meus Scripts",

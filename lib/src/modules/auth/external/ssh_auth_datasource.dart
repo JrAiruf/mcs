@@ -1,3 +1,4 @@
+// ignore_for_file: unused_catch_clause
 import '../auth_imports.dart';
 
 final class SSHAuthDatasource implements ISSHAuthDatasource {
