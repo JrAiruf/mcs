@@ -20,6 +20,8 @@ class AppTextField extends StatelessWidget {
     return SizedBox(
       height: 50,
       child: TextFormField(
+        autovalidateMode: AutovalidateMode.always,
+        validator: (value) => value == null ? "$label não pode ser vazio" : null,
         obscureText: visible ?? false,
         style: const TextStyle(color: AppThemes.contrastColor),
         onChanged: onChanged,
@@ -30,13 +32,11 @@ class AppTextField extends StatelessWidget {
             fontWeight: FontWeight.w300,
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide:
-                const BorderSide(color: AppThemes.contrastColor, width: 0.5),
+            borderSide: const BorderSide(color: AppThemes.contrastColor, width: 0.5),
             borderRadius: BorderRadius.circular(5),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide:
-                const BorderSide(color: AppThemes.contrastColor, width: 0.5),
+            borderSide: const BorderSide(color: AppThemes.contrastColor, width: 0.5),
             borderRadius: BorderRadius.circular(5),
           ),
           suffixIcon: passwordField ?? false

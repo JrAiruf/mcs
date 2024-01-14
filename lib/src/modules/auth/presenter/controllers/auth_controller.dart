@@ -1,7 +1,8 @@
 import 'package:mcs/src/imports.dart';
 
 class AuthController {
-  AuthEntity authEntity = AuthEntity("","");
+  final authBloc = Modular.get<AuthBloc>();
+  AuthEntity authEntity = AuthEntity("", "");
 
   bool visiblePassword = false;
 }

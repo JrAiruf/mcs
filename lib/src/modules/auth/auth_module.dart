@@ -8,6 +8,10 @@ class AuthModule extends Module {
   }
   @override
   void binds(Injector i) {
+    i.addLazySingleton<ISSHClientService>(SSHClientService.new);
+    i.addLazySingleton<ISSHAuthDatasource>(SSHAuthDatasource.new);
+    i.addLazySingleton<IAuthRepository>(AuthRepository.new);
+    i.addLazySingleton(AuthBloc.new);
     i.addLazySingleton(AuthController.new);
   }
 }
