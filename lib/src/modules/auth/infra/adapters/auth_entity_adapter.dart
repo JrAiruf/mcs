@@ -22,15 +22,15 @@ class AuthEntityAdapter {
 
   factory AuthEntityAdapter.toAdapter(AuthEntity entity) {
     return AuthEntityAdapter(
-      username: entity.username,
-      password: entity.password,
+      username: entity.username ?? "",
+      password: entity.password ?? "",
     );
   }
 
   static AuthEntity toEntity(Map<String, dynamic> map) {
     return AuthEntity(
-      map['username'],
-      map['password'],
+      username: map['username'],
+      password: map['password'],
     );
   }
 

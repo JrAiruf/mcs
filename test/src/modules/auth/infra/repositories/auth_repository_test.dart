@@ -1,10 +1,6 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mcs/src/imports.dart';
-import 'package:mcs/src/modules/auth/infra/repositories/auth_repository.dart';
-import 'package:mocktail/mocktail.dart';
-
-import '../../../../../mocks/auth_mocks/auth_mocks_classes.dart';
-import '../../../../../mocks/auth_mocks/auth_mocks_data.dart';
+import '../../../../../mocks/auth_mocks/auth_mock_classes.dart';
+import '../../../../../mocks/auth_mocks/auth_mock_data.dart';
 
 void main() {
   late ISSHAuthDatasource datasource;
@@ -36,7 +32,7 @@ void main() {
         'return AuthException',
         () async {
           when(() => datasource.authenticate(any())).thenThrow(AuthException("Usuário não encontrado"));
-          final user = AuthEntity("username", "password");
+          final user = AuthEntity(username: "username", password: "password");
           final result = await repository.authenticate(user);
           expect(result.fold((l) => l, (r) => null), isA<AuthException>());
           expect(result.fold((l) => l.message, (r) => null), equals("Usuário não encontrado"));

@@ -20,29 +20,54 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AppTextField(
-            label: "Username",
-            onChanged: _controller.authEntity.setUsername,
+          Form(
+            key: _controller.authKey,
+            child: Column(
+              children: [
+                AppTextField(
+                  label: "Username",
+                  onChanged: _controller.authEntity.setUsername,
+                ),
+                const SizedBox(height: 25),
+                AppTextField(
+                    visible: !_controller.visiblePassword,
+                    label: "Password",
+                    onChanged: _controller.authEntity.setPassword,
+                    passwordField: true,
+                    onTap: () {
+                      setState(
+                        () {
+                          _controller.visiblePassword = !_controller.visiblePassword;
+                        },
+                      );
+                    }),
+              ],
+            ),
           ),
           const SizedBox(height: 25),
-          AppTextField(
-              visible: !_controller.visiblePassword,
-              label: "Password",
-              onChanged: _controller.authEntity.setUsername,
-              passwordField: true,
-              onTap: () {
-                setState(
-                  () {
-                    _controller.visiblePassword = !_controller.visiblePassword;
-                  },
+          BlocConsumer(
+            bloc: _controller.authBloc,
+            listener: (context, state) {
+              if (state is AuthFailureState) {
+                _controller.authSnackbar(context, state.message);
+              }
+              if (state is AuthSuccessState) {
+                Modular.to.navigate("/home/", arguments: state.authEntity);
+              }
+            },
+            builder: (context, state) {
+              if (state is AuthLoadingState) {
+                return const Center(
+                  child: CircularProgressIndicator(color: AppThemes.contrastColor),
                 );
-              }),
-          const SizedBox(height: 25),
-          AppButton(
-            onTap: () => Modular.to.navigate("/home/"),
-            text: "Login",
-            backgroundColor: AppThemes.secondaryColor,
-            primaryColor: AppThemes.contrastColor,
+              }
+              return AppButton(
+                onTap: _controller.authenticate,
+                text: "Login",
+                backgroundColor: AppThemes.secondaryColor,
+                primaryColor: AppThemes.contrastColor,
+              );
+            },
           ),
         ],
       ),

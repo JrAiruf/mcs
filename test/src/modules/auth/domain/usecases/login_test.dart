@@ -1,9 +1,7 @@
-import 'package:dartz/dartz.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mcs/src/imports.dart';
 import 'package:mocktail/mocktail.dart';
-import '../../../../../mocks/auth_mocks/auth_mocks_classes.dart';
-import '../../../../../mocks/auth_mocks/auth_mocks_data.dart';
+import '../../../../../mocks/auth_mocks/auth_mock_classes.dart';
+import '../../../../../mocks/auth_mocks/auth_mock_data.dart';
 
 void main() {
   late IAuthRepository repository;
@@ -23,7 +21,7 @@ void main() {
           when(() => repository.authenticate(any())).thenAnswer(
             (_) async => Right(AuthMockData.authEntity),
           );
-          final user = AuthEntity("username", "password");
+          final user = AuthEntity(username: "username", password: "password");
           final result = await login(user);
           expect(result.isRight(), equals(true));
           expect(result.fold((l) => null, (r) => r), isA<AuthEntity>());
@@ -37,7 +35,7 @@ void main() {
         when(() => repository.authenticate(any())).thenAnswer(
           (_) async => Left(AuthException("Usuário não encontrado")),
         );
-        final user = AuthEntity("username", "password");
+        final user = AuthEntity(username: "username", password: "password");
         final result = await login(user);
         expect(result.isLeft(), equals(true));
         expect(result.fold((l) => l, (r) => null), isA<AuthException>());

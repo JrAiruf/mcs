@@ -2,11 +2,11 @@
 class Script {
   String? name;
   String? command;
-  bool? running;
+  String? description;
 
   Script({
     this.name,
     this.command,
-    this.running,
+    this.description,
   });
 }

@@ -3,8 +3,8 @@ import 'package:mcs/src/imports.dart';
 import 'package:mcs/src/modules/auth/external/ssh_auth_datasource.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../mocks/auth_mocks/auth_mocks_classes.dart';
-import '../../../../mocks/auth_mocks/auth_mocks_data.dart';
+import '../../../../mocks/auth_mocks/auth_mock_classes.dart';
+import '../../../../mocks/auth_mocks/auth_mock_data.dart';
 
 void main() {
   late ISSHClientService service;

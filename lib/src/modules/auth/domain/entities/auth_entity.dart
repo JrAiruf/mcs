@@ -1,17 +1,25 @@
 final class AuthEntity {
-  String username;
-  String password;
+  String? username;
+  String? password;
 
-  AuthEntity(
+  AuthEntity({
     this.username,
     this.password,
-  );
+  });
 
-  void setUsername(String value) {
-    username = value;
+  void setUsername(String? value) {
+    if (value != null && value.isNotEmpty) {
+      username = value;
+    } else {
+      value = null;
+    }
   }
 
-  void setPassword(String value) {
-    password = value;
+  void setPassword(String? value) {
+    if (value != null && value.isNotEmpty) {
+      password = value;
+    } else {
+      value = null;
+    }
   }
 }
