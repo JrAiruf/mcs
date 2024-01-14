@@ -1,4 +1,4 @@
-import 'package:mcs/src/imports.dart';
+import 'package:mcs/src/app_imports.dart';
 import 'package:mocktail/mocktail.dart';
 import '../../../../../mocks/auth_mocks/auth_mock_classes.dart';
 import '../../../../../mocks/auth_mocks/auth_mock_data.dart';

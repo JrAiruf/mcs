@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mcs/src/imports.dart';
+import 'package:mcs/src/app_imports.dart';
 import 'package:mcs/src/services/ssh_client_service.dart';
 
 void main() {

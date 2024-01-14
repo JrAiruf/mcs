@@ -1,4 +1,4 @@
-import 'package:mcs/src/imports.dart';
+import 'package:mcs/src/app_imports.dart';
 export 'package:mcs/src/modules/auth/auth_imports.dart';
 
 class AuthModule extends Module {

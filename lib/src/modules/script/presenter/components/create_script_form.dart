@@ -1,4 +1,4 @@
-import '../../../../imports.dart';
+import '../../../../app_imports.dart';
 
 class CreateScriptForm extends StatelessWidget {
   const CreateScriptForm({super.key});

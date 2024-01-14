@@ -1,4 +1,4 @@
-import '../../../../imports.dart';
+import '../../../../app_imports.dart';
 
 class ScriptPage extends StatefulWidget {
   const ScriptPage({super.key});

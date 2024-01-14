@@ -5,3 +5,6 @@ export 'package:mcs/src/modules/script/domain/usecases/save_script.dart';
 export 'package:mcs/src/modules/script/domain/entities/script.dart';
 export 'package:mcs/src/modules/script/infra/interfaces/iscript_repository.dart';
 export 'package:dartz/dartz.dart' hide State, Evaluation;
+export 'package:mcs/src/modules/script/external/interfaces/iscript_datasource.dart';
+export 'package:mcs/src/modules/script/infra/repositories/script_repository.dart';
+export 'package:mcs/src/modules/script/infra/adapters/script_adapter.dart';

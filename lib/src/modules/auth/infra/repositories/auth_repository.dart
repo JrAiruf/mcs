@@ -1,5 +1,4 @@
-import 'package:dartz/dartz.dart';
-import 'package:mcs/src/imports.dart';
+import 'package:mcs/src/app_imports.dart';
 
 final class AuthRepository implements IAuthRepository {
   AuthRepository(ISSHAuthDatasource datasource) : _datasource = datasource;
@@ -13,7 +12,7 @@ final class AuthRepository implements IAuthRepository {
         final authEntity = AuthEntityAdapter.toEntity(result);
         return right(authEntity);
       } else {
-        return left(AuthException("Não foi possível realizar login"));
+        return left(AuthException("Não foi possível realizar login."));
       }
     } on BaseException catch (e) {
       return left(AuthException(e.message));

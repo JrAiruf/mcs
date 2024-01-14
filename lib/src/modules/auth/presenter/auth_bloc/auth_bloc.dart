@@ -1,4 +1,4 @@
-import 'package:mcs/src/imports.dart';
+import 'package:mcs/src/app_imports.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 

@@ -1,4 +1,4 @@
-import 'package:mcs/src/imports.dart';
+import 'package:mcs/src/app_imports.dart';
 export '../home/home_imports.dart';
 
 class HomeModule extends Module {

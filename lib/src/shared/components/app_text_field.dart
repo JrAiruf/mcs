@@ -1,5 +1,5 @@
 // ignore_for_file: must_be_immutable
-import '../../imports.dart';
+import '../../app_imports.dart';
 
 class AppTextField extends StatelessWidget {
   AppTextField({

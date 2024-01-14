@@ -1,4 +1,4 @@
-import 'package:mcs/src/imports.dart';
+import 'package:mcs/src/app_imports.dart';
 
 abstract class BaseException implements Exception {
   BaseException(this.message) {

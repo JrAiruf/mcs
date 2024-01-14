@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mcs/src/imports.dart';
+import 'package:mcs/src/app_imports.dart';
 import 'package:mcs/src/modules/auth/external/ssh_auth_datasource.dart';
 import 'package:mocktail/mocktail.dart';
 

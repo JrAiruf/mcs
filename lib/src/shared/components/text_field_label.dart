@@ -1,4 +1,4 @@
-import '../../imports.dart';
+import '../../app_imports.dart';
 
 class TextFieldLabel extends StatelessWidget {
   const TextFieldLabel({required this.label, super.key});

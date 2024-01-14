@@ -1,4 +1,4 @@
-export '../../imports.dart';
+export '../../app_imports.dart';
 export 'package:mcs/src/modules/auth/domain/entities/auth_entity.dart';
 export 'package:mcs/src/services/ssh_client_service/issh_client_service.dart';
 export 'package:mcs/src/modules/auth/external/interfaces/issh_auth_datasource.dart';
