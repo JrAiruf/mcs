@@ -28,8 +28,8 @@ void main() {
           expect(result.fold((l) => null, (r) => r), isA<AuthEntity>());
           expect(result.fold((l) => null, (r) => r.username) != null, equals(true));
           expect(result.fold((l) => null, (r) => r.password) != null, equals(true));
-          expect(result.fold((l) => null, (r) => r.username), equals("asdadjfkash"));
-          expect(result.fold((l) => null, (r) => r.password), equals("3452uh2"));
+          expect(result.fold((l) => null, (r) => r.username), equals("app"));
+          expect(result.fold((l) => null, (r) => r.password), equals("2nq25nf7"));
         },
       );
       test(

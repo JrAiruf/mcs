@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mcs/src/imports.dart';
 import 'package:mcs/src/modules/auth/external/ssh_auth_datasource.dart';
-import 'package:mcs/src/services/ssh_client_service.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks/auth_mocks/auth_mocks_classes.dart';
