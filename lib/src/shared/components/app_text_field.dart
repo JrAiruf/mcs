@@ -20,7 +20,7 @@ class AppTextField extends StatelessWidget {
     return SizedBox(
       height: 50,
       child: TextFormField(
-        autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => value == null ? "$label não pode ser vazio" : null,
         obscureText: visible ?? false,
         style: const TextStyle(color: AppThemes.contrastColor),

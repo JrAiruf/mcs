@@ -1,11 +1,14 @@
 import 'package:mcs/src/app_imports.dart';
 
 class AuthController {
+//BLOCS
   final authBloc = Modular.get<AuthBloc>();
-  AuthEntity authEntity = AuthEntity(username: "", password: "");
-  final authKey = GlobalKey<FormState>();
+//PROPS
+  AuthEntity authEntity = AuthEntity();
   bool visiblePassword = false;
-
+//KEYS
+  final authKey = GlobalKey<FormState>();
+//FUNCTIONS
   void authenticate() {
     authKey.currentState?.validate();
     if (authKey.currentState!.validate()) {
