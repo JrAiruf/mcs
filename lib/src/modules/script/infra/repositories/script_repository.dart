@@ -13,4 +13,10 @@ final class ScriptRepository implements IScriptRepository {
       return left(ScriptException(e.message));
     }
   }
+  
+  @override
+  Future<Either<ScriptException, List<Script>>> fetchScriptsList() {
+    // TODO: implement fetchScriptsList
+    throw UnimplementedError();
+  }
 }

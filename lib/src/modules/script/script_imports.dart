@@ -10,4 +10,5 @@ export 'package:mcs/src/modules/script/infra/repositories/script_repository.dart
 export 'package:mcs/src/modules/script/infra/adapters/script_adapter.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:mcs/src/modules/script/external/script_datasource.dart';
-export 'package:mcs/src/modules/script/presenter/cubits/script_cubit.dart';
+export 'package:mcs/src/modules/script/presenter/controllers/script_controller.dart';
+export 'package:mcs/src/modules/script/presenter/script_bloc/script_bloc.dart';

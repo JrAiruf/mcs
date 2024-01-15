@@ -93,7 +93,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
 final _scriptNames = [
   "Script 1",
   "Script 2",

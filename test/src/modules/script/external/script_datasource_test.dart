@@ -32,4 +32,25 @@ void main() {
       );
     },
   );
+  group(
+    "FetchScriptsList function should",
+    () {
+      test(
+        "return a List containing all scripts maps",
+        () async {
+          await datasource.saveScript({"name": "Outro Script", "command": "OUTRO_COMANDO"});
+
+          final result = await datasource.fetchScriptsList();
+          expect(result, isA<List<Map<String, dynamic>>>());
+          expect(result.isNotEmpty, equals(true));
+        },
+      );
+      test(
+        "throw an ScriptException",
+        () async {
+          expect(() async => await datasource.fetchScriptsList(), throwsA(isA<ScriptException>()));
+        },
+      );
+    },
+  );
 }

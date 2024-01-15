@@ -18,7 +18,19 @@ final class ScriptDatasource implements IScriptDatasource {
       _sharedPreferences?.setStringList("scripts", sharedList);
       final savedScript = jsonDecode(sharedList.first) as Map<String, dynamic>;
       return savedScript;
+    } else {
+      throw ScriptException("Não foi possível salvar um novo script.");
     }
-    throw ScriptException("Não foi possível salvar um novo script.");
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> fetchScriptsList() async {
+    final scriptsJsonList = _sharedPreferences?.getStringList("scripts");
+    if (scriptsJsonList != null) {
+      final scriptsList = scriptsJsonList.map((script) => jsonDecode(script)).toList() as List<Map<String, dynamic>>;
+      return scriptsList;
+    } else {
+      throw ScriptException("Não foi possível obter os scripts.");
+    }
   }
 }
