@@ -1,4 +1,4 @@
-part of 'script_bloc.dart';
+part of 'scripts_bloc.dart';
 
 @immutable
 sealed class ScriptStates {}

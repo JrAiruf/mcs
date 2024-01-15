@@ -1,5 +1,4 @@
 import 'package:mcs/src/app_imports.dart';
-import 'package:mcs/src/modules/script/domain/usecases/fetch_scripts_list.dart';
 
 import '../../../../../mocks/script_mocks/script_mock_classes.dart';
 import '../../../../../mocks/script_mocks/script_mock_data.dart';

@@ -12,8 +12,9 @@ class ScriptModule extends Module {
     i.addInstance(await SharedPreferences.getInstance());
     i.addLazySingleton<IScriptDatasource>(ScriptDatasource.new);
     i.addLazySingleton<IScriptRepository>(ScriptRepository.new);
-    i.addLazySingleton<SaveScript>(SaveScript.new);
-    i.addLazySingleton<ScriptBloc>(ScriptBloc.new);
+    i.addLazySingleton(SaveScript.new);
+    i.addLazySingleton(FetchScriptsList.new);
+    i.addLazySingleton(ScriptBloc.new);
     i.addLazySingleton<ScriptController>(ScriptController.new);
   }
 }
