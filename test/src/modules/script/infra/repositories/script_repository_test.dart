@@ -39,4 +39,28 @@ void main() {
       );
     },
   );
+  group(
+    "FetchScriptsList function should",
+    () {
+      test(
+        "return a List containing all scripts",
+        () async {
+          when(() => datasource.fetchScriptsList()).thenAnswer((_) async => ScriptMockData.scriptsMapsList);
+
+          final result = await repository.fetchScriptsList();
+          expect(result.fold((l) => null, (r) => r), isA<List<Script>>());
+          expect(result.fold((l) => null, (r) => r.isNotEmpty), equals(true));
+        },
+      );
+      test(
+        "throw an ScriptsListException",
+        () async {
+          when(() => datasource.fetchScriptsList()).thenThrow(ScriptsListException("Não foi possível obter os scripts."));
+          final result = await repository.fetchScriptsList();
+          expect(result.fold((l) => l, (r) => null), isA<ScriptsListException>());
+          expect(result.fold((l) => l.message, (r) => null), equals("Não foi possível obter os scripts."));
+        },
+      );
+    },
+  );
 }

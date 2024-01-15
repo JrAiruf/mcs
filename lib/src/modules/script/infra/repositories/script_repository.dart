@@ -13,10 +13,15 @@ final class ScriptRepository implements IScriptRepository {
       return left(ScriptException(e.message));
     }
   }
-  
+
   @override
-  Future<Either<ScriptException, List<Script>>> fetchScriptsList() {
-    // TODO: implement fetchScriptsList
-    throw UnimplementedError();
+  Future<Either<ScriptsListException, List<Script>>> fetchScriptsList() async {
+    try {
+      final result = await _datasource.fetchScriptsList() as List<Map<String, dynamic>>;
+      final scriptsList = result.map((script) => ScriptAdapter.fromMap(script)).toList();
+      return right(scriptsList);
+    } on BaseException catch (e) {
+      return left(ScriptsListException(e.message));
+    }
   }
 }

@@ -8,11 +8,6 @@ void main() {
       datasource = ScriptDatasource();
     },
   );
-  tearDown(
-    () {
-      datasource = ScriptDatasource();
-    },
-  );
   group(
     "SaveScript function should",
     () {
@@ -41,14 +36,14 @@ void main() {
           await datasource.saveScript({"name": "Outro Script", "command": "OUTRO_COMANDO"});
 
           final result = await datasource.fetchScriptsList();
-          expect(result, isA<List<Map<String, dynamic>>>());
+          expect(result, isA<List>());
           expect(result.isNotEmpty, equals(true));
         },
       );
       test(
         "throw an ScriptException",
         () async {
-          expect(() async => await datasource.fetchScriptsList(), throwsA(isA<ScriptException>()));
+          expect(() async => await datasource.fetchScriptsList(), throwsA(isA<ScriptsListException>()));
         },
       );
     },

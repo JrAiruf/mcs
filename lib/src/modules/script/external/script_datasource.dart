@@ -9,14 +9,14 @@ final class ScriptDatasource implements IScriptDatasource {
     }
   }
   SharedPreferences? _sharedPreferences;
+  List<String> scripts = [];
   @override
   Future<Map<String, dynamic>> saveScript(Map<String, dynamic>? script) async {
+    await _sharedPreferences?.setStringList("scripts", scripts);
     if (script != null && script.isNotEmpty) {
-      final sharedList = _sharedPreferences?.getStringList("scripts") ?? [];
       final jsonScript = jsonEncode(script);
-      sharedList.insert(0, jsonScript);
-      _sharedPreferences?.setStringList("scripts", sharedList);
-      final savedScript = jsonDecode(sharedList.first) as Map<String, dynamic>;
+      scripts.insert(0, jsonScript);
+      final savedScript = jsonDecode(scripts.first) as Map<String, dynamic>;
       return savedScript;
     } else {
       throw ScriptException("Não foi possível salvar um novo script.");
@@ -24,13 +24,14 @@ final class ScriptDatasource implements IScriptDatasource {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> fetchScriptsList() async {
-    final scriptsJsonList = _sharedPreferences?.getStringList("scripts");
-    if (scriptsJsonList != null) {
-      final scriptsList = scriptsJsonList.map((script) => jsonDecode(script)).toList() as List<Map<String, dynamic>>;
-      return scriptsList;
-    } else {
-      throw ScriptException("Não foi possível obter os scripts.");
+  Future<List> fetchScriptsList() async {
+    {
+      if (scripts.isNotEmpty) {
+        final scriptsList = scripts.map((script) => jsonDecode(script)).toList();
+        return scriptsList;
+      } else {
+        throw ScriptsListException("Não foi possível obter os scripts.");
+      }
     }
   }
 }

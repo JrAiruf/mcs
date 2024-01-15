@@ -14,7 +14,7 @@ final class ScriptFailureState extends ScriptStates {
 }
 
 final class ScriptSuccessState extends ScriptStates {
-  final Script script;
+  final List<Script> script;
 
   ScriptSuccessState(this.script);
 }

@@ -11,6 +11,7 @@ class AuthModule extends Module {
     i.addLazySingleton<ISSHClientService>(SSHClientService.new);
     i.addLazySingleton<ISSHAuthDatasource>(SSHAuthDatasource.new);
     i.addLazySingleton<IAuthRepository>(AuthRepository.new);
+    i.addLazySingleton(Login.new);
     i.addLazySingleton(AuthBloc.new);
     i.addLazySingleton(AuthController.new);
   }
