@@ -11,5 +11,6 @@ export 'package:mcs/src/modules/script/infra/adapters/script_adapter.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:mcs/src/modules/script/external/script_datasource.dart';
 export 'package:mcs/src/modules/script/presenter/controllers/script_controller.dart';
-export 'package:mcs/src/modules/script/presenter/scripts_bloc/scripts_bloc.dart';
+export 'package:mcs/src/modules/script/presenter/blocs/save_script_bloc/save_script_bloc.dart';
+export 'package:mcs/src/modules/script/presenter/blocs/fetch_scripts_list_bloc/fetch_scripts_list_bloc.dart';
 export 'package:mcs/src/modules/script/domain/usecases/fetch_scripts_list.dart';
