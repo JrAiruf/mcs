@@ -52,7 +52,7 @@ class _LoginFormState extends State<LoginForm> {
                 _controller.authSnackbar(context, state.message);
               }
               if (state is AuthSuccessState) {
-                Modular.to.navigate("/home/", arguments: state.authEntity);
+                Modular.to.navigate("/script/", arguments: state.authEntity);
               }
             },
             builder: (context, state) {

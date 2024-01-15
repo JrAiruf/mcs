@@ -6,6 +6,7 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+final _controller = Modular.get<ScriptController>();
 
 class _HomePageState extends State<HomePage> {
   @override
@@ -56,35 +57,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                Center(
-                  child: Wrap(
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: _scriptNames
-                        .map((e) => InkWell(
-                              onTap: () {},
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: AppThemes.secondaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                height: 75,
-                                width: MediaQuery.sizeOf(context).width * 0.44,
-                                child: Center(
-                                  child: Text(
-                                    e,
-                                    style: const TextStyle(
-                                      color: AppThemes.contrastColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ))
-                        .toList(),
-                  ),
-                )
+                ScriptsListComponent(controller: _controller),
               ],
             ),
           ),
@@ -93,6 +66,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
 final _scriptNames = [
   "Script 1",
   "Script 2",

@@ -1,6 +1,6 @@
 import 'package:mcs/src/app_imports.dart';
 
-final class ScriptController {
+class ScriptController {
   //BLOCS
   final fetchScriptsListBloc = Modular.get<FetchScriptsListBloc>();
   final saveScriptBloc = Modular.get<SaveScriptBloc>();

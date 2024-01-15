@@ -14,7 +14,7 @@ final class FetchScriptsListFailureState extends FetchScriptsListStates {
 }
 
 final class FetchScriptsListSuccessState extends FetchScriptsListStates {
-  final List<Script> script;
+  final List<Script> scripts;
 
-  FetchScriptsListSuccessState(this.script);
+  FetchScriptsListSuccessState(this.scripts);
 }
