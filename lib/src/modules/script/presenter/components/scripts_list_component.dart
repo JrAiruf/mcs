@@ -1,25 +1,34 @@
 import 'package:mcs/src/app_imports.dart';
 
-class ScriptsListComponent extends StatelessWidget {
-  ScriptsListComponent({super.key, required this.controller}) {
-    controller.fetchScriptsList();
-  }
+class ScriptsListComponent extends StatefulWidget {
+  const ScriptsListComponent({super.key, required this.controller});
 
   final ScriptController controller;
+
+  @override
+  State<ScriptsListComponent> createState() => _ScriptsListComponentState();
+}
+
+class _ScriptsListComponentState extends State<ScriptsListComponent> {
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(
-      bloc: controller.fetchScriptsListBloc,
+      bloc: widget.controller.fetchScriptsListBloc,
       builder: (context, state) {
         if (state is FetchScriptsListLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: AppThemes.contrastColor,
+          return const SizedBox(
+            height: 350,
+            child: Center(
+              child: CircularProgressIndicator(
+                color: AppThemes.contrastColor,
+              ),
             ),
           );
         }
         if (state is FetchScriptsListFailureState) {
-          return SizedBox(height: 350,
+          return SizedBox(
+            height: 350,
             child: Center(
               child: Text(
                 state.message,

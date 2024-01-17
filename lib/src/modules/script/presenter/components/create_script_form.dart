@@ -1,8 +1,9 @@
 import '../../../../app_imports.dart';
 
 class CreateScriptForm extends StatelessWidget {
-  const CreateScriptForm({super.key});
+  const CreateScriptForm({super.key, required this.controller});
 
+  final ScriptController controller;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -19,11 +20,16 @@ class CreateScriptForm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const TextFieldLabel(label: "Nome do Script"),
-              AppTextField(),
+              AppTextField(
+                controller: controller.scriptName,
+              ),
               const TextFieldLabel(label: "Comando Script"),
-              AppTextField(),
+              AppTextField(
+                controller: controller.scriptCommand,
+              ),
               const SizedBox(height: 20),
-              const AppButton(
+              AppButton(
+                onTap: controller.saveScript,
                 backgroundColor: AppThemes.primaryColor,
                 text: "Salvar Script",
                 primaryColor: AppThemes.contrastColor,

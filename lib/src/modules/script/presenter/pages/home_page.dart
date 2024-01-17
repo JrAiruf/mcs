@@ -6,9 +6,23 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
 final _controller = Modular.get<ScriptController>();
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    _controller.fetchScriptsList();
+  }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _controller.saveScriptBloc.stream.listen((event) {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
@@ -46,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 const SizedBox(height: 15),
-                const CreateScriptForm(),
+                CreateScriptForm(controller: _controller),
                 const SizedBox(height: 15),
                 const Text(
                   "Meus Scripts",

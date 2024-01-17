@@ -8,7 +8,17 @@ class ScriptController {
   Script script = Script();
   //KEYS
   final scriptKey = GlobalKey<FormState>();
+  //INPUTS
+  final scriptName = TextEditingController();
+  final scriptCommand = TextEditingController();
   //FUNCTIONS
-  saveScript() => saveScriptBloc.add(SaveScriptEvent(script));
+  saveScript() {
+    script.setName(scriptName.text);
+    script.setCommand(scriptCommand.text);
+    saveScriptBloc.add(SaveScriptEvent(script));
+    scriptName.clear();
+    scriptCommand.clear();
+  }
+
   fetchScriptsList() => fetchScriptsListBloc.add(FetchScriptsListEvent());
 }

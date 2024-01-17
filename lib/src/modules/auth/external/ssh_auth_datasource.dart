@@ -1,4 +1,3 @@
-// ignore_for_file: unused_catch_clause
 import '../auth_imports.dart';
 
 final class SSHAuthDatasource implements ISSHAuthDatasource {
@@ -11,7 +10,7 @@ final class SSHAuthDatasource implements ISSHAuthDatasource {
     try {
       final authData = jsonDecode(await _service.authenticate(authEntity!)) as Map<String, dynamic>;
       return authData;
-    } on BaseException catch (e) {
+    } on BaseException {
       rethrow;
     }
   }

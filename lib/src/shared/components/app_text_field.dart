@@ -9,17 +9,20 @@ class AppTextField extends StatelessWidget {
     this.visible,
     this.passwordField,
     this.onTap,
+    this.controller,
   });
   String? label;
   bool? visible;
   bool? passwordField;
   Function(String)? onChanged;
   Function()? onTap;
+  TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
       child: TextFormField(
+        controller:controller,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => value == null ? "$label não pode ser vazio" : null,
         obscureText: visible ?? false,

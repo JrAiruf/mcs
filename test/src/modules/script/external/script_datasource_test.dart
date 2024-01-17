@@ -1,11 +1,15 @@
 import 'package:mcs/src/app_imports.dart';
 
+import '../../../../mocks/script_mocks/script_mock_classes.dart';
+import '../../../../mocks/script_mocks/script_mock_data.dart';
+
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  late ISSHClientService service;
   late ScriptDatasource datasource;
   setUp(
-    () {
-      datasource = ScriptDatasource();
+    () async {
+      service = SSHClientServiceMock();
+      datasource = ScriptDatasource(service);
     },
   );
   group(
@@ -14,14 +18,17 @@ void main() {
       test(
         "save the given script in shared preferences",
         () async {
+          when(()=> service.saveScript(any())).thenAnswer((_) async => ScriptMockData.scriptJsonMap);
           final result = await datasource.saveScript({"name": "Outro Script", "command": "OUTRO_COMANDO"});
           expect(result, isA<Map<String, dynamic>>());
-          expect(result["name"], equals("Outro Script"));
+          expect(result["name"], equals("Ativar North"));
+          expect(result["command"], equals("NORTH_ATIVA"));
         },
       );
       test(
         "throw an ScriptException",
         () async {
+          when(()=> service.saveScript(any())).thenThrow(ScriptException("Não foi possível criar um novo script."));
           expect(() async => await datasource.saveScript({}), throwsA(isA<ScriptException>()));
         },
       );

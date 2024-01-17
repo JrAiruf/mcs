@@ -4,7 +4,6 @@ export 'package:mcs/src/modules/script/script_imports.dart';
 class ScriptModule extends Module {
   @override
   void binds(Injector i) {
-    i.addInstance(SharedPreferences.getInstance);
     i.addLazySingleton<IScriptDatasource>(ScriptDatasource.new);
     i.addLazySingleton<IScriptRepository>(ScriptRepository.new);
     i.addLazySingleton(SaveScript.new);

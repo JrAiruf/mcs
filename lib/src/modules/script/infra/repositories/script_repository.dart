@@ -17,7 +17,7 @@ final class ScriptRepository implements IScriptRepository {
   @override
   Future<Either<ScriptsListException, List<Script>>> fetchScriptsList() async {
     try {
-      final result = await _datasource.fetchScriptsList() as List<Map<String, dynamic>>;
+      final result = await _datasource.fetchScriptsList();
       final scriptsList = result.map((script) => ScriptAdapter.fromMap(script)).toList();
       return right(scriptsList);
     } on BaseException catch (e) {

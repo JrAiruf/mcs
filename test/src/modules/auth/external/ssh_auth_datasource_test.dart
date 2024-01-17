@@ -1,8 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mcs/src/app_imports.dart';
-import 'package:mcs/src/modules/auth/external/ssh_auth_datasource.dart';
-import 'package:mocktail/mocktail.dart';
-
 import '../../../../mocks/auth_mocks/auth_mock_classes.dart';
 import '../../../../mocks/auth_mocks/auth_mock_data.dart';
 

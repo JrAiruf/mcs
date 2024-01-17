@@ -15,4 +15,5 @@ export 'package:mcs/src/modules/script/presenter/blocs/save_script_bloc/save_scr
 export 'package:mcs/src/modules/script/presenter/blocs/fetch_scripts_list_bloc/fetch_scripts_list_bloc.dart';
 export 'package:mcs/src/modules/script/domain/usecases/fetch_scripts_list.dart';
 export 'package:mcs/src/modules/script/presenter/pages/home_page.dart';
+export 'package:uuid/uuid.dart';
 export 'package:mcs/src/modules/script/presenter/components/scripts_list_component.dart';
