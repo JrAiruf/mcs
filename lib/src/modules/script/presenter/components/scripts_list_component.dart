@@ -7,6 +7,7 @@ class ScriptsListComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height;
     return BlocBuilder(
       bloc: controller.fetchScriptsListBloc,
       builder: (context, state) {
@@ -49,7 +50,7 @@ class ScriptsListComponent extends StatelessWidget {
                             color: AppThemes.secondaryColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          height: 75,
+                          height: height * 0.09,
                           width: MediaQuery.sizeOf(context).width * 0.44,
                           child: Center(
                             child: Text(

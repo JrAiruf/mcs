@@ -60,6 +60,11 @@ class SSHClientService implements ISSHClientService {
   }
 
   @override
+  Future<String> updateScript(Map<String, dynamic>? script) async {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<String> fetchScriptsList() async {
     try {
       String scriptsJsonList = "";
@@ -82,7 +87,7 @@ class SSHClientService implements ISSHClientService {
     return nonExistingValue;
   }
 
-  Future<bool> nullLoggedUser() async {
+  Future<bool> signedOutUser() async {
     final nonExistingValue = await _client.execute("cat $_authFile").then(
           (value) async => await value.stdout.asyncMap((event) => event).isEmpty,
         );

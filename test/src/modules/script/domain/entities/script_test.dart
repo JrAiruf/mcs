@@ -7,7 +7,6 @@ void main() {
       script = Script(
         name: null,
         command: null,
-        description: null,
       );
     },
   );
@@ -49,23 +48,11 @@ void main() {
       );
     },
   );
-  group(
-    "SetDescription Function should",
+  test(
+    "assign the given value to description property",
     () {
-      test(
-        "assign the given value to description property",
-        () {
-          script.setDescription("scriptDescription");
-          expect(script.description, equals("scriptDescription"));
-        },
-      );
-      test(
-        "assign no value to command property",
-        () {
-          script.setDescription("");
-          expect(script.description, equals(null));
-        },
-      );
+      script.setDescription("scriptDescription");
+      expect(script.description, equals("scriptDescription"));
     },
   );
 }

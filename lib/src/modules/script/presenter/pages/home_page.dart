@@ -11,6 +11,7 @@ final _controller = Modular.get<ScriptController>();
 AuthEntity _authEntity = Modular.args.data;
 
 class _HomePageState extends State<HomePage> {
+  
   @override
   void initState() {
     super.initState();
