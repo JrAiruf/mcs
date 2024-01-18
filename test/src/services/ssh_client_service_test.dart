@@ -1,7 +1,7 @@
 import 'package:mcs/src/app_imports.dart';
 
 void main() {
-  late ISSHClientService clientService;
+  late SSHClientService clientService;
   setUp(
     () async {
       clientService = SSHClientService();
@@ -60,6 +60,46 @@ void main() {
           expect(() async => await clientService.saveScript(scriptMap), throwsA(isA<ScriptException>()));
         },
       );
+    },
+  );
+  group(
+    "FetchScriptsList function should",
+    () {
+      test(
+        "retrieve a string list of json, containing all scripts created on server",
+        () async {
+              final authMap = {
+            "username": "app",
+            "password": "2nq25nf7",
+          };
+          await clientService.authenticate(authMap);
+          final jsonResult = await clientService.fetchScriptsList();
+          final scriptMapList = jsonDecode(jsonResult);
+          final singleMap = scriptMapList.first;
+          expect(scriptMapList, isA<List>());
+          expect(scriptMapList.isNotEmpty, equals(true));
+          expect(singleMap, isA<Map<String, dynamic>>());
+        },
+      );
+      test(
+        "thrown an ScriptException due any error",
+        () async {
+          final scriptMap = {"name": "NORTH TEST", "command": "NORTH_TESTE_SCRIPT", "description": ""};
+          expect(() async => await clientService.saveScript(scriptMap), throwsA(isA<ScriptException>()));
+        },
+      );
+    },
+  );
+  test(
+    "NullScriptsList function should return false if an list of scripts exists in server.",
+    () async {
+      final authMap = {
+        "username": "app",
+        "password": "2nq25nf7",
+      };
+      await clientService.authenticate(authMap);
+      final verification = await clientService.nullScriptsList();
+      expect(verification, equals(false));
     },
   );
 }

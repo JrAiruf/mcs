@@ -17,11 +17,11 @@ final class ScriptDatasource implements IScriptDatasource {
 
   @override
   Future<List> fetchScriptsList() async {
-    if (scripts.isNotEmpty) {
-      final scriptsList = scripts.map((script) => jsonDecode(script)).toList();
+    try {
+      final scriptsList = jsonDecode(await _service.fetchScriptsList());
       return scriptsList;
-    } else {
-      throw ScriptsListException("Não foi possível obter os scripts.");
+    } on BaseException {
+      rethrow;
     }
   }
 }

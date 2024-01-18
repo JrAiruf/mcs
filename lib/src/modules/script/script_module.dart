@@ -2,6 +2,11 @@ import 'package:mcs/src/app_imports.dart';
 export 'package:mcs/src/modules/script/script_imports.dart';
 
 class ScriptModule extends Module {
+  
+  @override
+  List<Module> get imports => [
+    AppModule(),
+  ];
   @override
   void binds(Injector i) {
     i.addLazySingleton<IScriptDatasource>(ScriptDatasource.new);

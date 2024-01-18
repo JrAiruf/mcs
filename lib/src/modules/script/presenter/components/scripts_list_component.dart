@@ -1,20 +1,14 @@
 import 'package:mcs/src/app_imports.dart';
 
-class ScriptsListComponent extends StatefulWidget {
+class ScriptsListComponent extends StatelessWidget {
   const ScriptsListComponent({super.key, required this.controller});
 
   final ScriptController controller;
 
   @override
-  State<ScriptsListComponent> createState() => _ScriptsListComponentState();
-}
-
-class _ScriptsListComponentState extends State<ScriptsListComponent> {
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder(
-      bloc: widget.controller.fetchScriptsListBloc,
+      bloc: controller.fetchScriptsListBloc,
       builder: (context, state) {
         if (state is FetchScriptsListLoadingState) {
           return const SizedBox(

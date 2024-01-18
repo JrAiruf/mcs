@@ -15,11 +15,12 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _controller.fetchScriptsList();
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _controller.saveScriptBloc.stream.listen((event) {
-      setState(() {});
+      _controller.fetchScriptsList();
     });
   }
 

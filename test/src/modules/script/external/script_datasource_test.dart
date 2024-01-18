@@ -18,7 +18,7 @@ void main() {
       test(
         "save the given script in shared preferences",
         () async {
-          when(()=> service.saveScript(any())).thenAnswer((_) async => ScriptMockData.scriptJsonMap);
+          when(() => service.saveScript(any())).thenAnswer((_) async => ScriptMockData.scriptJsonMap);
           final result = await datasource.saveScript({"name": "Outro Script", "command": "OUTRO_COMANDO"});
           expect(result, isA<Map<String, dynamic>>());
           expect(result["name"], equals("Ativar North"));
@@ -28,7 +28,7 @@ void main() {
       test(
         "throw an ScriptException",
         () async {
-          when(()=> service.saveScript(any())).thenThrow(ScriptException("Não foi possível criar um novo script."));
+          when(() => service.saveScript(any())).thenThrow(ScriptException("Não foi possível criar um novo script."));
           expect(() async => await datasource.saveScript({}), throwsA(isA<ScriptException>()));
         },
       );
@@ -40,8 +40,8 @@ void main() {
       test(
         "return a List containing all scripts maps",
         () async {
-          await datasource.saveScript({"name": "Outro Script", "command": "OUTRO_COMANDO"});
-
+          final scriptsJsonList = jsonEncode(ScriptMockData.scriptsMapsList.map((script) => jsonEncode(script)).toList());
+          when(() => service.fetchScriptsList()).thenAnswer((_) async => scriptsJsonList);
           final result = await datasource.fetchScriptsList();
           expect(result, isA<List>());
           expect(result.isNotEmpty, equals(true));
@@ -50,6 +50,7 @@ void main() {
       test(
         "throw an ScriptException",
         () async {
+          when(() => service.fetchScriptsList()).thenThrow(ScriptsListException("Não foi possível obter os scripts."));
           expect(() async => await datasource.fetchScriptsList(), throwsA(isA<ScriptsListException>()));
         },
       );
