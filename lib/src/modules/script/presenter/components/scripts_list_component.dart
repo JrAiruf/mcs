@@ -40,7 +40,10 @@ class ScriptsListComponent extends StatelessWidget {
               runSpacing: 10,
               children: state.scripts
                   .map((script) => InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Modular.to
+                              .pushNamed("./script_page", arguments: script);
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             color: AppThemes.secondaryColor,

@@ -3,7 +3,7 @@ import '../../../../../mocks/auth_mocks/auth_mock_classes.dart';
 import '../../../../../mocks/auth_mocks/auth_mock_data.dart';
 
 void main() {
-  late ISSHAuthDatasource datasource;
+  late IAuthDatasource datasource;
   late AuthRepository repository;
   setUp(
     () {

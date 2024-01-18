@@ -81,4 +81,17 @@ class SSHClientService implements ISSHClientService {
         );
     return nonExistingValue;
   }
+
+  Future<bool> nullLoggedUser() async {
+    final nonExistingValue = await _client.execute("cat $_authFile").then(
+          (value) async => await value.stdout.asyncMap((event) => event).isEmpty,
+        );
+    return nonExistingValue;
+  }
+
+  @override
+  Future<bool> signOut() async {
+    // TODO: implement signOut
+    throw UnimplementedError();
+  }
 }

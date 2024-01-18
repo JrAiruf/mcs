@@ -15,7 +15,7 @@ class AuthModule extends Module {
   
   @override
   void binds(Injector i) {
-    i.addLazySingleton<ISSHAuthDatasource>(SSHAuthDatasource.new);
+    i.addLazySingleton<IAuthDatasource>(SSHAuthDatasource.new);
     i.addLazySingleton<IAuthRepository>(AuthRepository.new);
     i.addLazySingleton(Login.new);
     i.addLazySingleton(AuthBloc.new);

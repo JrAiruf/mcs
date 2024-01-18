@@ -1,6 +1,6 @@
 import '../auth_imports.dart';
 
-final class SSHAuthDatasource implements ISSHAuthDatasource {
+final class SSHAuthDatasource implements IAuthDatasource {
   SSHAuthDatasource(ISSHClientService service) : _service = service;
 
   final ISSHClientService _service;

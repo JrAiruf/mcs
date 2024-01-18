@@ -1,8 +1,8 @@
 import 'package:mcs/src/app_imports.dart';
 
 final class AuthRepository implements IAuthRepository {
-  AuthRepository(ISSHAuthDatasource datasource) : _datasource = datasource;
-  final ISSHAuthDatasource _datasource;
+  AuthRepository(IAuthDatasource datasource) : _datasource = datasource;
+  final IAuthDatasource _datasource;
   @override
   Future<Either<AuthException, AuthEntity>> authenticate(AuthEntity? entity) async {
     try {

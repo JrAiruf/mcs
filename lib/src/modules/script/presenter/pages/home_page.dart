@@ -8,6 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 final _controller = Modular.get<ScriptController>();
+AuthEntity _authEntity = Modular.args.data;
 
 class _HomePageState extends State<HomePage> {
   @override
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
+    final userName = "${_authEntity.username?.substring(0,1).toUpperCase()}${_authEntity.username?.substring(1)}";
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -42,9 +44,9 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "Username",
-                      style: TextStyle(
+                    Text(
+                      userName,
+                      style: const TextStyle(
                         color: AppThemes.contrastColor,
                         fontSize: 30,
                         fontWeight: FontWeight.w300,
