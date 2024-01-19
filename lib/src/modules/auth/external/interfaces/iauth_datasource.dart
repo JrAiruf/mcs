@@ -1,3 +1,4 @@
 abstract interface class IAuthDatasource {
-  Future<Map<String,dynamic>> authenticate(Map<String, dynamic>? authEntity);
+  Future<Map<String, dynamic>> authenticate(Map<String, dynamic>? authEntity);
+  Future<bool> signOut();
 }

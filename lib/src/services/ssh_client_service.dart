@@ -80,6 +80,16 @@ class SSHClientService implements ISSHClientService {
     }
   }
 
+  @override
+  Future<bool> signOut() async {
+    try {
+      await _client.execute("rm $_authFile");
+      return await signedOutUser();
+    } catch (e) {
+      throw AuthException("Algum erro ocorreu.");
+    }
+  }
+
   Future<bool> nullScriptsList() async {
     final nonExistingValue = await _client.execute("cat $_scriptsFile").then(
           (value) async => await value.stdout.asyncMap((event) => event).isEmpty,
@@ -88,15 +98,9 @@ class SSHClientService implements ISSHClientService {
   }
 
   Future<bool> signedOutUser() async {
-    final nonExistingValue = await _client.execute("cat $_authFile").then(
+    final nonExistingUser = await _client.execute("cat $_authFile").then(
           (value) async => await value.stdout.asyncMap((event) => event).isEmpty,
         );
-    return nonExistingValue;
-  }
-
-  @override
-  Future<bool> signOut() async {
-    // TODO: implement signOut
-    throw UnimplementedError();
+    return nonExistingUser;
   }
 }

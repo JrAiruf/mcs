@@ -18,3 +18,5 @@ final class AuthSuccessState extends AuthStates {
 
   AuthSuccessState(this.authEntity);
 }
+
+final class AuthSignOutState extends AuthStates {}

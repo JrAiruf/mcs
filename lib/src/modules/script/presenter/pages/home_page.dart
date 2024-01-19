@@ -8,10 +8,10 @@ class HomePage extends StatefulWidget {
 }
 
 final _controller = Modular.get<ScriptController>();
+final _authController = Modular.get<AuthController>();
 AuthEntity _authEntity = Modular.args.data;
 
 class _HomePageState extends State<HomePage> {
-  
   @override
   void initState() {
     super.initState();
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
-    final userName = "${_authEntity.username?.substring(0,1).toUpperCase()}${_authEntity.username?.substring(1)}";
+    final userName = "${_authEntity.username?.substring(0, 1).toUpperCase()}${_authEntity.username?.substring(1)}";
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -53,14 +53,23 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w300,
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.logout,
-                        size: 35,
-                        color: AppThemes.contrastColor,
-                      ),
-                    ),
+                    BlocConsumer(
+                        bloc: _authController.authBloc,
+                        listener: (_, state) {
+                          if (state is AuthSignOutState) {
+                            Modular.to.navigate("/auth/");
+                          }
+                        },
+                        builder: (_, state) {
+                          return IconButton(
+                            onPressed: _authController.signOut,
+                            icon: const Icon(
+                              Icons.logout,
+                              size: 35,
+                              color: AppThemes.contrastColor,
+                            ),
+                          );
+                        }),
                   ],
                 ),
                 const SizedBox(height: 15),

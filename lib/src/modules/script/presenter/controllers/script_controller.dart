@@ -11,6 +11,7 @@ class ScriptController {
   //INPUTS
   final scriptName = TextEditingController();
   final scriptCommand = TextEditingController();
+  final scriptDescription = TextEditingController();
   //FUNCTIONS
   saveScript() {
     script.setName(scriptName.text);

@@ -17,6 +17,7 @@ class AuthController {
       authErrorSnackbar("Dados inválidos! Por favor preencha os campos.");
     }
   }
+  void signOut() => authBloc.add(SignOutEvent());
 
   authSnackbar(BuildContext context, String message) {
     return ScaffoldMessenger.of(context).showSnackBar(

@@ -40,4 +40,27 @@ void main() {
       );
     },
   );
+  group(
+    'SignOut function should',
+    () {
+      test(
+        'call datasource to signout the application',
+        () async {
+          when(() => datasource.signOut()).thenAnswer((_) async => true);
+          final result = await repository.signOut();
+          expect(result.fold((l) => null, (r) => r), isA<bool>());
+          expect(result.fold((l) => null, (r) => r), equals(true));
+        },
+      );
+      test(
+        'return AuthException due fail to signout',
+        () async {
+          when(() => datasource.signOut()).thenThrow(AuthException("Algum erro ocorreu"));
+          final result = await repository.signOut();
+          expect(result.fold((l) => l, (r) => null), isA<AuthException>());
+          expect(result.fold((l) => l.message, (r) => null), equals("Algum erro ocorreu"));
+        },
+      );
+    },
+  );
 }

@@ -2,13 +2,12 @@ import '../../../../app_imports.dart';
 
 class ScriptPage extends StatefulWidget {
   const ScriptPage({super.key});
-
   @override
   State<ScriptPage> createState() => _ScriptPageState();
 }
 
 Script _script = Modular.args.data;
-
+final _controller = Modular.get<ScriptController>();
 class _ScriptPageState extends State<ScriptPage> {
   @override
   Widget build(BuildContext context) {

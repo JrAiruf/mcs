@@ -8,3 +8,7 @@ final class AuthEvent extends AuthEvents {
 
   AuthEvent(this.authEntity);
 }
+
+final class SignOutEvent extends AuthEvents {
+  SignOutEvent();
+}

@@ -42,4 +42,26 @@ void main() {
       );
     },
   );
+  group(
+    'SignOut function should',
+    () {
+      test(
+        'call ssh service to erase user data in server, to ocasionate the signout of the application',
+        () async {
+          when(() => service.signOut()).thenAnswer((_) async => true);
+
+          final result = await datasource.signOut();
+          expect(result, isA<bool>());
+          expect(result, equals(true));
+        },
+      );
+      test(
+        'throw an AuthException due to unexisting user',
+        () async {
+          when(() => service.signOut()).thenThrow(AuthException("Algum erro ocorreu."));
+          expect(() async => await datasource.signOut(), throwsA(isA<AuthException>()));
+        },
+      );
+    },
+  );
 }

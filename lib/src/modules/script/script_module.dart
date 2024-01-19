@@ -6,6 +6,7 @@ class ScriptModule extends Module {
   @override
   List<Module> get imports => [
     AppModule(),
+    AuthModule(),
   ];
   @override
   void binds(Injector i) {

@@ -18,4 +18,14 @@ final class AuthRepository implements IAuthRepository {
       return left(AuthException(e.message));
     }
   }
+
+  @override
+  Future<Either<AuthException, bool>> signOut() async {
+    try {
+      final result = await _datasource.signOut();
+      return right(result);
+    } on BaseException catch (e) {
+      return left(AuthException(e.message));
+    }
+  }
 }

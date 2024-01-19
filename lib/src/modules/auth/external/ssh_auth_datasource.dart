@@ -14,4 +14,13 @@ final class SSHAuthDatasource implements IAuthDatasource {
       rethrow;
     }
   }
+
+  @override
+  Future<bool> signOut() async {
+    try {
+      return await _service.signOut();
+    } on BaseException {
+      rethrow;
+    }
+  }
 }

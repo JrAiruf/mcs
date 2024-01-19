@@ -7,6 +7,7 @@ class AppModule extends Module {
     r.module("/auth", module: AuthModule());
     r.module("/script", module: ScriptModule());
   }
+  
   @override
   void exportedBinds(Injector i) {
     super.binds(i);

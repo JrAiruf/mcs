@@ -1,4 +1,5 @@
 import 'package:mcs/src/app_imports.dart';
+import 'package:mcs/src/modules/script/presenter/components/script_tile.dart';
 
 class ScriptsListComponent extends StatelessWidget {
   const ScriptsListComponent({super.key, required this.controller});
@@ -40,30 +41,15 @@ class ScriptsListComponent extends StatelessWidget {
               spacing: 10,
               runSpacing: 10,
               children: state.scripts
-                  .map((script) => InkWell(
-                        onTap: () {
-                          Modular.to
-                              .pushNamed("./script_page", arguments: script);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppThemes.secondaryColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          height: height * 0.09,
-                          width: MediaQuery.sizeOf(context).width * 0.44,
-                          child: Center(
-                            child: Text(
-                              script.name ?? "",
-                              style: const TextStyle(
-                                color: AppThemes.contrastColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ))
+                  .map(
+                    (script) => ScriptTile(
+                      script: script,
+                      height: height * 0.09,
+                      onTap: () {
+                        Modular.to.pushNamed('./script_page',arguments: script);
+                      },
+                    ),
+                  )
                   .toList(),
             ),
           );
