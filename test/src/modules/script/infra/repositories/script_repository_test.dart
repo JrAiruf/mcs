@@ -1,7 +1,7 @@
 import 'package:mcs/src/app_imports.dart';
 
-import '../../../../../mocks/script_mocks/script_mock_classes.dart';
-import '../../../../../mocks/script_mocks/script_mock_data.dart';
+import '../../../../../../lib/src/shared/mocks/script_mocks/script_mock_classes.dart';
+import '../../../../../../lib/src/shared/mocks/script_mocks/script_mock_data.dart';
 
 void main() {
   late IScriptDatasource datasource;
@@ -19,7 +19,7 @@ void main() {
         "call datasource to save the current script localy",
         () async {
           when(() => datasource.saveScript(any())).thenAnswer((_) async => ScriptMockData.scriptMap);
-          final result = await repository.saveScript(ScriptMockData.scriptEntity);
+          final result = await repository.saveScript(ScriptMockData.entity);
 
           expect(result.fold((l) => null, (r) => r), isA<Script>());
           expect(result.fold((l) => null, (r) => r.name) != null, equals(true));
@@ -59,6 +59,32 @@ void main() {
           final result = await repository.fetchScriptsList();
           expect(result.fold((l) => l, (r) => null), isA<ScriptsListException>());
           expect(result.fold((l) => l.message, (r) => null), equals("Não foi possível obter os scripts."));
+        },
+      );
+    },
+  );
+  group(
+    "UpdateScript function should",
+    () {
+      test(
+        "return a script map modified",
+        () async {
+          when(() => datasource.updateScript(any())).thenAnswer((_) async => ScriptMockData.modifiedScriptMap);
+
+          final result = await repository.updateScript(ScriptMockData.entity);
+          expect(result.fold((l) => null, (r) => r), isA<Script>());
+          expect(result.fold((l) => null, (r) => r.name) != null, equals(true));
+          expect(result.fold((l) => null, (r) => r.command) != null, equals(true));
+          expect(result.fold((l) => null, (r) => r.description) != null, equals(true));
+        },
+      );
+      test(
+        "throw an ScriptsListException",
+        () async {
+          when(() => datasource.updateScript(any())).thenThrow(ScriptsListException("Não foi possível atualizar o script."));
+          final result = await repository.updateScript(ScriptMockData.entity);
+          expect(result.fold((l) => l, (r) => null), isA<ScriptException>());
+          expect(result.fold((l) => l.message, (r) => null), equals("Não foi possível atualizar o script."));
         },
       );
     },

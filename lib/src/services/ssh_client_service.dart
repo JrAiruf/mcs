@@ -1,15 +1,15 @@
 import 'package:mcs/src/app_imports.dart';
 
 class SSHClientService implements ISSHClientService {
-  @override
-  Future runCommand(String command) {
-    throw UnimplementedError();
-  }
-
   late SSHClient _client;
   String _filePrefix = "";
   String _authFile = "";
   String _scriptsFile = "";
+
+  @override
+  Future<String> runCommand(String command) {
+    throw UnimplementedError();
+  }
 
   @override
   Future<String> authenticate(Map<String, dynamic>? authMap) async {
@@ -61,6 +61,37 @@ class SSHClientService implements ISSHClientService {
 
   @override
   Future<String> updateScript(Map<String, dynamic>? script) async {
+    try {
+      String scriptJsonMap = "";
+      final userData = await _client.execute("cat $_authFile");
+      final jsonUserData = utf8.decode(await userData.stdout.first);
+      if (jsonUserData.isNotEmpty) {
+        if (scriptVerifier(script!)) {
+          final scriptsDataList = await _client.execute("cat $_scriptsFile");
+          final scriptsJsonList = utf8.decode(await scriptsDataList.stdout.asBroadcastStream().first);
+          final scriptsMapsList = jsonDecode(scriptsJsonList) as List;
+          var currentScript =
+              scriptsMapsList.firstWhere((serverScript) => script["name"] == serverScript["name"] && script["command"] == serverScript["command"]);
+          currentScript["name"] = script["name"];
+          currentScript["command"] = script["command"];
+          currentScript["description"] = script["description"];
+          scriptsMapsList.remove(script);
+          scriptsMapsList.add(currentScript);
+          final convertedListToUpdateServer = jsonEncode(scriptsMapsList);
+          await _client.execute("echo '$convertedListToUpdateServer' > $_scriptsFile");
+          scriptJsonMap = jsonEncode(currentScript);
+        } else {
+          throw ScriptException("Não foi possível atualizar o script.");
+        }
+      }
+      return scriptJsonMap;
+    } catch (e) {
+      throw ScriptException("Algo deu errado. $e");
+    }
+  }
+
+  @override
+  Future<bool> removeScript(Map<String, dynamic>? script) async {
     throw UnimplementedError();
   }
 
@@ -102,5 +133,9 @@ class SSHClientService implements ISSHClientService {
           (value) async => await value.stdout.asyncMap((event) => event).isEmpty,
         );
     return nonExistingUser;
+  }
+
+  bool scriptVerifier(Map script) {
+    return script.values.isNotEmpty;
   }
 }

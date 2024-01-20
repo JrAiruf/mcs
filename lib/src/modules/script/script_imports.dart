@@ -14,6 +14,7 @@ export 'package:mcs/src/modules/script/presenter/controllers/script_controller.d
 export 'package:mcs/src/modules/auth/domain/usecases/sign_out.dart';
 export 'package:mcs/src/modules/script/presenter/blocs/save_script_bloc/save_script_bloc.dart';
 export 'package:mcs/src/modules/script/presenter/blocs/fetch_scripts_list_bloc/fetch_scripts_list_bloc.dart';
+export 'package:mcs/src/modules/script/domain/usecases/update_script.dart';
 export 'package:mcs/src/modules/script/domain/usecases/fetch_scripts_list.dart';
 export 'package:mcs/src/modules/script/presenter/pages/home_page.dart';
 export 'dart:async';

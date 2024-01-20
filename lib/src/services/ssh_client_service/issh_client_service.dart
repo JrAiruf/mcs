@@ -3,6 +3,7 @@ abstract class ISSHClientService {
   Future<bool> signOut();
   Future<String> saveScript(Map<String, dynamic>? script);
   Future<String> updateScript(Map<String, dynamic>? script);
+  Future<bool> removeScript(Map<String, dynamic>? script);
   Future<String> fetchScriptsList();
-  Future runCommand(String command);
+  Future<String> runCommand(String command);
 }

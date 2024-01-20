@@ -1,8 +1,5 @@
 import 'package:mcs/src/app_imports.dart';
 
-import '../../../../mocks/script_mocks/script_mock_classes.dart';
-import '../../../../mocks/script_mocks/script_mock_data.dart';
-
 void main() {
   late ISSHClientService service;
   late ScriptDatasource datasource;
@@ -16,7 +13,7 @@ void main() {
     "SaveScript function should",
     () {
       test(
-        "save the given script in shared preferences",
+        "save the given script in ssh server",
         () async {
           when(() => service.saveScript(any())).thenAnswer((_) async => ScriptMockData.scriptJsonMap);
           final result = await datasource.saveScript({"name": "Outro Script", "command": "OUTRO_COMANDO"});
@@ -52,6 +49,29 @@ void main() {
         () async {
           when(() => service.fetchScriptsList()).thenThrow(ScriptsListException("Não foi possível obter os scripts."));
           expect(() async => await datasource.fetchScriptsList(), throwsA(isA<ScriptsListException>()));
+        },
+      );
+    },
+  );
+  group(
+    "UpdateScript function should",
+    () {
+      test(
+        "update the given script",
+        () async {
+          when(() => service.updateScript(any())).thenAnswer((_) async => ScriptMockData.modifiedScriptJsonMap);
+          final result = await datasource.updateScript({"name": "Outro Script", "command": "OUTRO_COMANDO"});
+          expect(result, isA<Map<String, dynamic>>());
+          expect(result["name"], equals("Ativar North"));
+          expect(result["command"], equals("NORTH_ATIVA"));
+          expect(result["description"], equals("Script with description"));
+        },
+      );
+      test(
+        "throw an ScriptException",
+        () async {
+          when(() => service.updateScript(any())).thenThrow(ScriptException("Não foi possível atualizar o script."));
+          expect(() async => await datasource.updateScript({}), throwsA(isA<ScriptException>()));
         },
       );
     },

@@ -2,7 +2,7 @@ import 'package:mcs/src/app_imports.dart';
 part 'save_script_events.dart';
 part 'save_script_states.dart';
 
-class SaveScriptBloc extends Bloc<SaveScriptEvents, SaveScriptStates> {
+class SaveScriptBloc extends Bloc<ScriptEvents, SaveScriptStates> {
   SaveScriptBloc(SaveScript saveScript)
       : _saveScript = saveScript,
         super(SaveScriptInitialState()) {

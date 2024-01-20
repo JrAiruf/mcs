@@ -7,7 +7,6 @@ class ScriptPage extends StatefulWidget {
 }
 
 Script _script = Modular.args.data;
-final _controller = Modular.get<ScriptController>();
 class _ScriptPageState extends State<ScriptPage> {
   @override
   Widget build(BuildContext context) {

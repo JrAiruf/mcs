@@ -1,6 +1,7 @@
 import 'package:mcs/src/app_imports.dart';
 
-import '../../mocks/auth_mocks/auth_mock_data.dart';
+import '../../../lib/src/shared/mocks/auth_mocks/auth_mock_data.dart';
+import '../../../lib/src/shared/mocks/script_mocks/script_mock_data.dart';
 
 void main() {
   late SSHClientService clientService;
@@ -39,12 +40,11 @@ void main() {
         () async {
           final authResult = await clientService.authenticate(AuthMockData.authMap);
           expect(authResult, isA<String>());
-          final scriptMap = {"name": "NORTH TEST", "command": "NORTH_TESTE_SCRIPT", "description": ""};
-          final result = await clientService.saveScript(scriptMap);
+          final result = await clientService.saveScript(ScriptMockData.scriptMap);
           final resultMap = jsonDecode(result);
           expect(result, isA<String>());
-          expect(resultMap["name"], equals("NORTH TEST"));
-          expect(resultMap["command"], equals("NORTH_TESTE_SCRIPT"));
+          expect(resultMap["name"], equals("Ativar North"));
+          expect(resultMap["command"], equals("NORTH_ATIVA"));
         },
       );
       test(
@@ -96,6 +96,33 @@ void main() {
       await clientService.authenticate(AuthMockData.authMap);
       final verification = await clientService.nullScriptsList();
       expect(verification, equals(false));
+    },
+  );
+  group(
+    "UpdateScript function should",
+    () {
+      test(
+        "access SSH server and modify the given script, and return it's data",
+        () async {
+          final result = await clientService.authenticate(AuthMockData.authMap);
+          expect(result, isA<String>());
+          await clientService.saveScript(ScriptMockData.scriptMap);
+          final updateResult = await clientService.updateScript(ScriptMockData.modifiedScriptMap);
+          final resultMap = jsonDecode(updateResult);
+          expect(updateResult, isA<String>());
+          expect(resultMap["name"], equals("Ativar North"));
+          expect(resultMap["command"], equals("NORTH_ATIVA"));
+          expect(resultMap["description"], equals("Script with description"));
+        },
+      );
+      test(
+        "thrown an ScriptException due wrong format",
+        () async {
+          await clientService.authenticate(AuthMockData.authMap);
+          await clientService.saveScript(ScriptMockData.scriptMap);
+          expect(() async => await clientService.updateScript(ScriptMockData.wrongScriptMap), throwsA(isA<ScriptException>()));
+        },
+      );
     },
   );
 }

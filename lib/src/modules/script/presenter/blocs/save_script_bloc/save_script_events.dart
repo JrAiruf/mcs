@@ -1,9 +1,9 @@
 part of 'save_script_bloc.dart';
 
 @immutable
-sealed class SaveScriptEvents {}
+sealed class ScriptEvents {}
 
-final class SaveScriptEvent extends SaveScriptEvents {
+final class SaveScriptEvent extends ScriptEvents {
   final Script script;
   SaveScriptEvent(this.script);
 }

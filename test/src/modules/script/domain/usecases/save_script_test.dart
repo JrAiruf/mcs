@@ -1,7 +1,7 @@
 import 'package:mcs/src/app_imports.dart';
 
-import '../../../../../mocks/script_mocks/script_mock_classes.dart';
-import '../../../../../mocks/script_mocks/script_mock_data.dart';
+import '../../../../../../lib/src/shared/mocks/script_mocks/script_mock_classes.dart';
+import '../../../../../../lib/src/shared/mocks/script_mocks/script_mock_data.dart';
 
 void main() {
   late IScriptRepository repository;
@@ -19,7 +19,7 @@ void main() {
         "save a script with the given name and value for command",
         () async {
           when(() => repository.saveScript(any())).thenAnswer(
-            (_) async => Right(ScriptMockData.scriptEntity),
+            (_) async => Right(ScriptMockData.entity),
           );
           final result = await saveScript(
             Script(name: "Ativar North", command: "NORTH_ATIVA", description: "descrição do script"),
