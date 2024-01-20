@@ -27,5 +27,25 @@ class ScriptController {
     scriptDescription.clear();
   }
 
+  removeScript() {
+    scriptBloc.add(RemoveScriptEvent(script));
+  }
+
   fetchScriptsList() => fetchScriptsListBloc.add(FetchScriptsListEvent());
+
+  scriptsSnackbar(BuildContext context, String message) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: AppThemes.secondaryColor,
+        content: Center(
+          child: Text(
+            message,
+            style: const TextStyle(
+              color: AppThemes.contrastColor,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

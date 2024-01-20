@@ -24,3 +24,9 @@ final class UpdateScriptSuccessState extends ScriptStates {
 
   UpdateScriptSuccessState(this.script);
 }
+
+final class RemoveScriptSuccessState extends ScriptStates {
+  final String message;
+
+  RemoveScriptSuccessState(this.message);
+}
