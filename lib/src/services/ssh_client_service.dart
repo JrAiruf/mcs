@@ -128,6 +128,7 @@ class SSHClientService implements ISSHClientService {
         if (script != null) {
           scriptsMapsList.remove(script);
           final convertedListToUpdateServer = jsonEncode(scriptsMapsList);
+          await _client.execute("cat $_scriptsFile");
           await _client.execute("echo '$convertedListToUpdateServer' > $_scriptsFile");
           operationResult = "Script removido.";
         } else {

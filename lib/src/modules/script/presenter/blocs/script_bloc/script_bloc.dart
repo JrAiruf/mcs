@@ -36,6 +36,7 @@ class ScriptBloc extends Bloc<ScriptEvents, ScriptStates> {
   }
 
   _mapRemoveScriptEventToState(RemoveScriptEvent event, Emitter<ScriptStates> state) async {
+    state(ScriptLoadingState());
     final result = await _removeScript(event.script);
     result.fold(
       (left) => state(ScriptFailureState(left.message)),

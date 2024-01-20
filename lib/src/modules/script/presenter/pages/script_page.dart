@@ -37,10 +37,21 @@ class _ScriptPageState extends State<ScriptPage> {
                   primaryColor: AppThemes.contrastColor,
                 ),
                 const SizedBox(height: 20),
-                const AppButton(
-                  backgroundColor: AppThemes.contrastColor,
-                  text: "Remover Script",
-                  primaryColor: AppThemes.secondaryColor,
+                BlocConsumer(
+                  bloc: _controller.scriptBloc,
+                  listener: (_, state) {
+                    if (state is RemoveScriptSuccessState) {
+                      Modular.to.pop();
+                    }
+                  },
+                  builder: (context, state) {
+                    return AppButton(
+                      backgroundColor: AppThemes.contrastColor,
+                      text: "Remover Script",
+                      onTap: _controller.removeScript,
+                      primaryColor: AppThemes.secondaryColor,
+                    );
+                  },
                 ),
               ],
             ),

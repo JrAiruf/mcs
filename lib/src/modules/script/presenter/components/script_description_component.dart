@@ -18,7 +18,7 @@ class _ScriptDescriptionComponentState extends State<ScriptDescriptionComponent>
       children: [
         SizedBox(height: height * 0.045),
         Text(
-          "${widget.controller.script.name}",
+          "${widget.controller.script!.name}",
           style: const TextStyle(
             color: AppThemes.contrastColor,
             fontSize: 30,
@@ -27,7 +27,7 @@ class _ScriptDescriptionComponentState extends State<ScriptDescriptionComponent>
         ),
         SizedBox(height: height * 0.045),
         Text(
-          "${widget.controller.script.command}",
+          "${widget.controller.script!.command}",
           style: const TextStyle(
             color: AppThemes.contrastColor,
             fontSize: 20,
@@ -86,7 +86,7 @@ class _ScriptDescriptionComponentState extends State<ScriptDescriptionComponent>
                       width: 0.3,
                     ),
                   ),
-                  child: widget.controller.script.description.isEmpty
+                  child: widget.controller.script!.description.isEmpty
                       ? const Center(
                           child: Text(
                             "Esse Script não possui descrição",
@@ -101,7 +101,7 @@ class _ScriptDescriptionComponentState extends State<ScriptDescriptionComponent>
                           padding: const EdgeInsets.all(10),
                           child: Center(
                             child: Text(
-                              widget.controller.script.description,
+                              widget.controller.script!.description,
                               style: const TextStyle(
                                 color: AppThemes.contrastColor,
                                 fontSize: 15,
@@ -121,7 +121,7 @@ class _ScriptDescriptionComponentState extends State<ScriptDescriptionComponent>
                     width: 0.3,
                   ),
                 ),
-                child: widget.controller.script.description.isEmpty
+                child: widget.controller.script!.description.isEmpty
                     ? const Center(
                         child: Text(
                           "Esse Script não possui descrição",
@@ -136,7 +136,7 @@ class _ScriptDescriptionComponentState extends State<ScriptDescriptionComponent>
                         padding: const EdgeInsets.all(10),
                         child: Center(
                           child: Text(
-                            widget.controller.script.description,
+                            widget.controller.script!.description,
                             style: const TextStyle(
                               color: AppThemes.contrastColor,
                               fontSize: 15,

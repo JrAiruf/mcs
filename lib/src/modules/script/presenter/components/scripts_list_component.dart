@@ -36,21 +36,31 @@ class ScriptsListComponent extends StatelessWidget {
           );
         }
         if (state is FetchScriptsListSuccessState) {
-          return Center(
-            child: Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: state.scripts
-                  .map(
-                    (script) => ScriptTile(
-                      script: script,
-                      height: height * 0.09,
-                      onTap: () {
-                        Modular.to.pushNamed('./script_page',arguments: script);
-                      },
+          return SizedBox(
+            height: 350,
+            child: Center(
+              child: state.scripts.isEmpty
+                  ? const Text(
+                      "Não existem scripts salvos!",
+                      style: TextStyle(
+                        color: AppThemes.contrastColor,
+                      ),
+                    )
+                  : Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: state.scripts
+                          .map(
+                            (script) => ScriptTile(
+                              script: script,
+                              height: height * 0.09,
+                              onTap: () {
+                                Modular.to.pushNamed('./script_page', arguments: script);
+                              },
+                            ),
+                          )
+                          .toList(),
                     ),
-                  )
-                  .toList(),
             ),
           );
         }

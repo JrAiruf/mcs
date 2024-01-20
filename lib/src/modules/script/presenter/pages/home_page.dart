@@ -25,6 +25,9 @@ class _HomePageState extends State<HomePage> {
       if (state is CreateScriptSuccessState) {
         _controller.fetchScriptsList();
       }
+      if (state is RemoveScriptSuccessState) {
+        _controller.fetchScriptsList();
+      }
     });
   }
 
