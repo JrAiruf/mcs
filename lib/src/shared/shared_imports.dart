@@ -3,3 +3,7 @@ export 'package:mcs/src/shared/components/logo_component.dart';
 export 'package:mcs/src/shared/components/app_text_field.dart';
 export 'package:mcs/src/shared/constants/server.dart';
 export 'package:mcs/src/shared/components/text_field_label.dart';
+export 'package:mcs/src/shared/mocks/script_mocks/script_mock_classes.dart';
+export 'package:mcs/src/shared/mocks/auth_mocks/auth_mock_data.dart';
+export 'package:mcs/src/shared/mocks/script_mocks/script_mock_data.dart';
+export 'package:mcs/src/shared/mocks/auth_mocks/auth_mock_classes.dart';

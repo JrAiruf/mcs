@@ -17,6 +17,3 @@ export 'package:mcs/src/modules/auth/auth_module.dart';
 export 'package:mcs/src/modules/script/script_module.dart';
 //SHARED IMPORTS
 export 'package:mcs/src/shared/shared_imports.dart';
-export 'package:mcs/src/shared/mocks/auth_mocks/auth_mock_classes.dart';
-export 'package:mcs/src/shared/mocks/auth_mocks/auth_mock_data.dart';
-export 'package:mcs/src/shared/mocks/script_mocks/script_mock_data.dart';

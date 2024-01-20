@@ -1,8 +1,5 @@
 import 'package:mcs/src/app_imports.dart';
 
-import '../../../../../../lib/src/shared/mocks/script_mocks/script_mock_classes.dart';
-import '../../../../../../lib/src/shared/mocks/script_mocks/script_mock_data.dart';
-
 void main() {
   late IScriptDatasource datasource;
   late ScriptRepository repository;
@@ -79,12 +76,36 @@ void main() {
         },
       );
       test(
-        "throw an ScriptsListException",
+        "throw an ScriptException",
         () async {
-          when(() => datasource.updateScript(any())).thenThrow(ScriptsListException("Não foi possível atualizar o script."));
+          when(() => datasource.updateScript(any())).thenThrow(ScriptException("Não foi possível atualizar o script."));
           final result = await repository.updateScript(ScriptMockData.entity);
           expect(result.fold((l) => l, (r) => null), isA<ScriptException>());
           expect(result.fold((l) => l.message, (r) => null), equals("Não foi possível atualizar o script."));
+        },
+      );
+    },
+  );
+  group(
+    "RemoveScript function should",
+    () {
+      test(
+        "remove a script through datasource function",
+        () async {
+          when(() => datasource.removeScript(any())).thenAnswer((_) async => "Script removido.");
+
+          final result = await repository.removeScript(ScriptMockData.entity);
+          expect(result.fold((l) => null, (r) => r), isA<String>());
+          expect(result.fold((l) => null, (r) => r), equals("Script removido."));
+        },
+      );
+      test(
+        "throw an ScriptsListException",
+        () async {
+          when(() => datasource.removeScript(any())).thenThrow(ScriptException("Não foi possível remover o script."));
+          final result = await repository.removeScript(ScriptMockData.entity);
+          expect(result.fold((l) => l, (r) => null), isA<ScriptException>());
+          expect(result.fold((l) => l.message, (r) => null), equals("Não foi possível remover o script."));
         },
       );
     },

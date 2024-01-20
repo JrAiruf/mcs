@@ -1,8 +1,5 @@
 import 'package:mcs/src/app_imports.dart';
 
-import '../../../lib/src/shared/mocks/auth_mocks/auth_mock_data.dart';
-import '../../../lib/src/shared/mocks/script_mocks/script_mock_data.dart';
-
 void main() {
   late SSHClientService clientService;
   setUp(

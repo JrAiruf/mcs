@@ -36,7 +36,7 @@ final class ScriptDatasource implements IScriptDatasource {
   }
 
   @override
-  Future<bool> removeScript(Map<String, dynamic>? script) {
+  Future<String> removeScript(Map<String, dynamic>? script) {
     // TODO: implement removeScript
     throw UnimplementedError();
   }

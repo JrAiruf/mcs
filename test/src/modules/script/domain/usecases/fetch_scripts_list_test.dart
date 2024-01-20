@@ -1,8 +1,5 @@
 import 'package:mcs/src/app_imports.dart';
 
-import '../../../../../../lib/src/shared/mocks/script_mocks/script_mock_classes.dart';
-import '../../../../../../lib/src/shared/mocks/script_mocks/script_mock_data.dart';
-
 void main() {
   late IScriptRepository repository;
   late FetchScriptsList fetchScriptsList;

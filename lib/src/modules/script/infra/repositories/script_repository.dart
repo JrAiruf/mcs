@@ -37,8 +37,12 @@ final class ScriptRepository implements IScriptRepository {
   }
 
   @override
-  Future<Either<ScriptException, bool>> removeScript(Script? script) {
-    // TODO: implement removeScript
-    throw UnimplementedError();
+  Future<Either<ScriptException, String>> removeScript(Script? script) async {
+      try {
+      final removeResult = await _datasource.removeScript(ScriptAdapter.toMap(script!));
+      return right(removeResult);
+    } on BaseException catch (e) {
+      return left(ScriptException(e.message));
+    }
   }
 }

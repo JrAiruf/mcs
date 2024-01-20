@@ -1,5 +1,4 @@
 import 'package:mcs/src/app_imports.dart';
-import '../../../../../../lib/src/shared/mocks/auth_mocks/auth_mock_classes.dart';
 
 void main() {
   late IAuthRepository repository;
