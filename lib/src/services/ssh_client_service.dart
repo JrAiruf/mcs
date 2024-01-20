@@ -70,8 +70,7 @@ class SSHClientService implements ISSHClientService {
           final scriptsDataList = await _client.execute("cat $_scriptsFile");
           final scriptsJsonList = utf8.decode(await scriptsDataList.stdout.asBroadcastStream().first);
           final scriptsMapsList = jsonDecode(scriptsJsonList) as List;
-          var currentScript =
-              scriptsMapsList.firstWhere((serverScript) => script["name"] == serverScript["name"] && script["command"] == serverScript["command"]);
+          var currentScript = scriptsMapsList.firstWhere((serverScript) => script["name"] == serverScript["name"] && script["command"] == serverScript["command"]);
           currentScript["name"] = script["name"];
           currentScript["command"] = script["command"];
           currentScript["description"] = script["description"];
@@ -88,11 +87,6 @@ class SSHClientService implements ISSHClientService {
     } catch (e) {
       throw ScriptException("Algo deu errado. $e");
     }
-  }
-
-  @override
-  Future<bool> removeScript(Map<String, dynamic>? script) async {
-    throw UnimplementedError();
   }
 
   @override
@@ -118,6 +112,31 @@ class SSHClientService implements ISSHClientService {
       return await signedOutUser();
     } catch (e) {
       throw AuthException("Algum erro ocorreu.");
+    }
+  }
+
+  @override
+  Future<String> removeScript(Map<String, dynamic>? script) async {
+    try {
+      String operationResult = "";
+      final userData = await _client.execute("cat $_authFile");
+      final jsonUserData = utf8.decode(await userData.stdout.first);
+      if (jsonUserData.isNotEmpty) {
+        final scriptsDataList = await _client.execute("cat $_scriptsFile");
+        final scriptsJsonList = utf8.decode(await scriptsDataList.stdout.asBroadcastStream().first);
+        final scriptsMapsList = jsonDecode(scriptsJsonList) as List;
+        if (script != null) {
+          scriptsMapsList.remove(script);
+          final convertedListToUpdateServer = jsonEncode(scriptsMapsList);
+          await _client.execute("echo '$convertedListToUpdateServer' > $_scriptsFile");
+          operationResult = "Script removido.";
+        } else {
+          throw ScriptException("Não foi possível remover o script.");
+        }
+      }
+      return operationResult;
+    } catch (e) {
+      throw ScriptException("Não foi possível remover o script.");
     }
   }
 

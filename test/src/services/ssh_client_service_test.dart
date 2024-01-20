@@ -122,4 +122,27 @@ void main() {
       );
     },
   );
+  group(
+    "RemoveScript function should",
+    () {
+      test(
+        "access SSH server and modify the given script, and return it's data",
+        () async {
+          final result = await clientService.authenticate(AuthMockData.authMap);
+          expect(result, isA<String>());
+          final createdScript = await clientService.saveScript(ScriptMockData.scriptMap);
+          final removeResult = await clientService.removeScript(jsonDecode(createdScript));
+          expect(removeResult, isA<String>());
+          expect(removeResult, equals("Script removido."));
+        },
+      );
+      test(
+        "thrown an ScriptException due wrong format",
+        () async {
+          await clientService.authenticate(AuthMockData.authMap);
+          expect(() async => await clientService.removeScript(null), throwsA(isA<ScriptException>()));
+        },
+      );
+    },
+  );
 }

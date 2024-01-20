@@ -2,7 +2,6 @@ import 'package:mcs/src/app_imports.dart';
 
 final class ScriptDatasource implements IScriptDatasource {
   ScriptDatasource(ISSHClientService service) : _service = service;
-  List<String> scripts = [];
 
   final ISSHClientService _service;
   @override
@@ -28,16 +27,19 @@ final class ScriptDatasource implements IScriptDatasource {
   @override
   Future<Map<String, dynamic>> updateScript(Map<String, dynamic>? script) async {
     try {
-      final newScript = jsonDecode(await _service.updateScript(script)) as Map<String, dynamic>;
-      return newScript;
+      final updatedScript = jsonDecode(await _service.updateScript(script)) as Map<String, dynamic>;
+      return updatedScript;
     } on BaseException {
       rethrow;
     }
   }
 
   @override
-  Future<String> removeScript(Map<String, dynamic>? script) {
-    // TODO: implement removeScript
-    throw UnimplementedError();
+  Future<String> removeScript(Map<String, dynamic>? script) async {
+    try {
+      return await _service.removeScript(script);
+    } on BaseException {
+      rethrow;
+    }
   }
 }

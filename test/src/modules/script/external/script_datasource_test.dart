@@ -76,4 +76,25 @@ void main() {
       );
     },
   );
+  group(
+    "RemoveScript function should",
+    () {
+      test(
+        "Remove the given script",
+        () async {
+          when(() => service.removeScript(any())).thenAnswer((_) async => "Script removido.");
+          final result = await datasource.removeScript({"name": "Outro Script", "command": "OUTRO_COMANDO"});
+          expect(result, isA<String>());
+          expect(result, equals("Script removido."));
+        },
+      );
+      test(
+        "throw an ScriptException",
+        () async {
+          when(() => service.removeScript(any())).thenThrow(ScriptException("Não foi possível remover o script."));
+          expect(() async => await datasource.removeScript({}), throwsA(isA<ScriptException>()));
+        },
+      );
+    },
+  );
 }

@@ -12,7 +12,7 @@ export 'package:shared_preferences/shared_preferences.dart';
 export 'package:mcs/src/modules/script/external/script_datasource.dart';
 export 'package:mcs/src/modules/script/presenter/controllers/script_controller.dart';
 export 'package:mcs/src/modules/auth/domain/usecases/sign_out.dart';
-export 'package:mcs/src/modules/script/presenter/blocs/save_script_bloc/script_bloc.dart';
+export 'package:mcs/src/modules/script/presenter/blocs/script_bloc/script_bloc.dart';
 export 'package:mcs/src/modules/script/presenter/blocs/fetch_scripts_list_bloc/fetch_scripts_list_bloc.dart';
 export 'package:mcs/src/modules/script/domain/usecases/remove_script.dart';
 export 'package:mcs/src/modules/script/presenter/components/script_description_component.dart';
