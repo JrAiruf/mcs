@@ -13,8 +13,9 @@ class ScriptModule extends Module {
     i.addLazySingleton<IScriptDatasource>(ScriptDatasource.new);
     i.addLazySingleton<IScriptRepository>(ScriptRepository.new);
     i.addLazySingleton(SaveScript.new);
+    i.addLazySingleton(UpdateScript.new);
     i.addLazySingleton(FetchScriptsList.new);
-    i.addLazySingleton(SaveScriptBloc.new);
+    i.addLazySingleton(ScriptBloc.new);
     i.addLazySingleton(FetchScriptsListBloc.new);
     i.addLazySingleton(ScriptController.new);
   }

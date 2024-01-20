@@ -21,8 +21,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _controller.saveScriptBloc.stream.listen((event) {
-      _controller.fetchScriptsList();
+    _controller.scriptBloc.stream.listen((state) {
+      if (state is CreateScriptSuccessState) {
+        _controller.fetchScriptsList();
+      }
     });
   }
 

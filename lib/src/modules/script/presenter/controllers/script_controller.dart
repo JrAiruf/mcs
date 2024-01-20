@@ -3,7 +3,7 @@ import 'package:mcs/src/app_imports.dart';
 class ScriptController {
   //BLOCS
   final fetchScriptsListBloc = Modular.get<FetchScriptsListBloc>();
-  final saveScriptBloc = Modular.get<SaveScriptBloc>();
+  final scriptBloc = Modular.get<ScriptBloc>();
   //PROPS
   Script script = Script();
   //KEYS
@@ -16,9 +16,15 @@ class ScriptController {
   saveScript() {
     script.setName(scriptName.text);
     script.setCommand(scriptCommand.text);
-    saveScriptBloc.add(SaveScriptEvent(script));
+    scriptBloc.add(CreateScriptEvent(script));
     scriptName.clear();
     scriptCommand.clear();
+  }
+
+  updateScript() {
+    script.setDescription(scriptDescription.text);
+    scriptBloc.add(UpdateScriptEvent(script));
+    scriptDescription.clear();
   }
 
   fetchScriptsList() => fetchScriptsListBloc.add(FetchScriptsListEvent());
