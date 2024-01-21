@@ -31,9 +31,10 @@ class _ScriptPageState extends State<ScriptPage> {
               children: [
                 ScriptDescriptionComponent(controller: _controller),
                 SizedBox(height: height * 0.045),
-                const AppButton(
+                AppButton(
                   backgroundColor: AppThemes.secondaryColor,
                   text: "Executar Script",
+                  onTap: () => _controller.executeScript(context),
                   primaryColor: AppThemes.contrastColor,
                 ),
                 const SizedBox(height: 20),
@@ -48,7 +49,7 @@ class _ScriptPageState extends State<ScriptPage> {
                     return AppButton(
                       backgroundColor: AppThemes.contrastColor,
                       text: "Remover Script",
-                      onTap: _controller.removeScript,
+                      onTap: () => _controller.removeScript(context),
                       primaryColor: AppThemes.secondaryColor,
                     );
                   },

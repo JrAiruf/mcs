@@ -39,8 +39,42 @@ class ScriptController {
     }
   }
 
-  removeScript() {
-    scriptBloc.add(RemoveScriptEvent(script));
+  removeScript(BuildContext context) async {
+    return await showDialog(
+        context: context,
+        builder: (_) {
+          return appDialog(
+            context,
+            "Deseja Remover este Script?",
+            "O script removido será deletado da Lista de Scripts, e será cancelado automaticamente.",
+            () {
+              scriptBloc.add(RemoveScriptEvent(script));
+              Navigator.of(context).pop();
+            },
+            () {
+              Navigator.of(context).pop();
+            },
+          );
+        });
+  }
+
+  executeScript(BuildContext context) async {
+    return await showDialog(
+        context: context,
+        builder: (_) {
+          return appDialog(
+            context,
+            "Deseja Executar este Script?",
+            "O script ${script.name} será executado aplicando as ações informadas na descrição",
+            () {
+              scriptBloc.add(RemoveScriptEvent(script));
+              Navigator.of(context).pop();
+            },
+            () {
+              Navigator.of(context).pop();
+            },
+          );
+        });
   }
 
   fetchScriptsList() => fetchScriptsListBloc.add(FetchScriptsListEvent());

@@ -33,6 +33,7 @@ Dialog appDialog(
                 const SizedBox(height: 20),
                 Text(
                   message,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: AppThemes.contrastColor,
                     fontSize: 15,
