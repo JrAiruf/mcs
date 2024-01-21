@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                         },
                         builder: (_, state) {
                           return IconButton(
-                            onPressed: _authController.signOut,
+                            onPressed: () => _authController.signOut(context),
                             icon: const Icon(
                               Icons.logout,
                               size: 35,

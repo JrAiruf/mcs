@@ -1,8 +1,12 @@
 import 'package:mcs/src/app_imports.dart';
+import 'package:mcs/src/shared/components/app_dialog.dart';
 
 class AuthController {
 //BLOCS
   final authBloc = Modular.get<AuthBloc>();
+//CONTROLLERS
+  final username = TextEditingController();
+  final password = TextEditingController();
 //PROPS
   AuthEntity authEntity = AuthEntity();
   bool visiblePassword = false;
@@ -10,14 +14,38 @@ class AuthController {
   final authKey = GlobalKey<FormState>();
 //FUNCTIONS
   void authenticate() {
-    authKey.currentState?.validate();
+    authEntity.setUsername(username.text);
+    authEntity.setPassword(password.text);
+    authKey.currentState!.validate();
+    authKey.currentState!.save();
     if (authKey.currentState!.validate()) {
       authBloc.add(AuthEvent(authEntity));
+      username.clear();
+      password.clear();
     } else {
       authErrorSnackbar("Dados inválidos! Por favor preencha os campos.");
     }
   }
-  void signOut() => authBloc.add(SignOutEvent());
+
+  void signOut(BuildContext context) async {
+    await showDialog(
+        context: context,
+        builder: (_) {
+          return appDialog(
+            context,
+            "Deseja sair do Servidor?",
+            "Após o logout será necessária uma nova autenticação para executar qualquer ação.",
+            () {
+              authBloc.add(SignOutEvent());
+              Navigator.of(context).pop();
+            },
+            () {
+              Navigator.of(context).pop();
+            },
+          );
+        });
+    authEntity = AuthEntity();
+  }
 
   authSnackbar(BuildContext context, String message) {
     return ScaffoldMessenger.of(context).showSnackBar(
@@ -26,6 +54,7 @@ class AuthController {
         content: Center(
           child: Text(
             message,
+            textAlign: TextAlign.center,
             style: const TextStyle(
               color: AppThemes.contrastColor,
             ),

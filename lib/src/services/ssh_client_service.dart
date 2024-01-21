@@ -47,6 +47,7 @@ class SSHClientService implements ISSHClientService {
         final scriptsDataList = await _client.execute("cat $_scriptsFile");
         final scriptsJsonList = utf8.decode(await scriptsDataList.stdout.asBroadcastStream().first);
         final scriptsMapsList = jsonDecode(scriptsJsonList) as List;
+        script?["id"] = const Uuid().v1();
         scriptsMapsList.insert(0, script);
         final convertedListToUpdateServer = jsonEncode(scriptsMapsList);
         await _client.execute("echo '$convertedListToUpdateServer' > $_scriptsFile");
@@ -70,14 +71,11 @@ class SSHClientService implements ISSHClientService {
           final scriptsDataList = await _client.execute("cat $_scriptsFile");
           final scriptsJsonList = utf8.decode(await scriptsDataList.stdout.asBroadcastStream().first);
           final scriptsMapsList = jsonDecode(scriptsJsonList) as List;
-          var currentScript = scriptsMapsList.firstWhere((serverScript) => script["name"] == serverScript["name"] && script["command"] == serverScript["command"]);
+          var currentScript = scriptsMapsList.firstWhere((serverScript) => serverScript["id"] == script["id"]);
           currentScript["name"] = script["name"];
           currentScript["command"] = script["command"];
           currentScript["description"] = script["description"];
-          scriptsMapsList.remove(script);
-          scriptsMapsList.add(currentScript);
-          final convertedListToUpdateServer = jsonEncode(scriptsMapsList);
-          await _client.execute("echo '$convertedListToUpdateServer' > $_scriptsFile");
+          scriptsDataList.stdin.add(utf8.encode(jsonEncode(currentScript)));
           scriptJsonMap = jsonEncode(currentScript);
         } else {
           throw ScriptException("Não foi possível atualizar o script.");
@@ -108,7 +106,7 @@ class SSHClientService implements ISSHClientService {
   @override
   Future<bool> signOut() async {
     try {
-      await _client.execute("rm $_authFile");
+      await _client.execute("rm $_authFile").then((value) => value.close());
       return await signedOutUser();
     } catch (e) {
       throw AuthException("Algum erro ocorreu.");
@@ -126,11 +124,12 @@ class SSHClientService implements ISSHClientService {
         final scriptsJsonList = utf8.decode(await scriptsDataList.stdout.asBroadcastStream().first);
         final scriptsMapsList = jsonDecode(scriptsJsonList) as List;
         if (script != null) {
-          scriptsMapsList.remove(script);
+          var currentScript = scriptsMapsList.firstWhere((serverScript) => serverScript["id"] == script["id"]);
+          scriptsMapsList.remove(currentScript);
+          await _client.execute("rm $_scriptsFile");
           final convertedListToUpdateServer = jsonEncode(scriptsMapsList);
-          await _client.execute("cat $_scriptsFile");
           await _client.execute("echo '$convertedListToUpdateServer' > $_scriptsFile");
-          operationResult = "Script removido.";
+          operationResult = "Script removido: ${script["id"]}";
         } else {
           throw ScriptException("Não foi possível remover o script.");
         }
@@ -156,6 +155,14 @@ class SSHClientService implements ISSHClientService {
   }
 
   bool scriptVerifier(Map script) {
-    return script.values.isNotEmpty;
+    bool verified = true;
+    for (var i = 0; i < script.values.length; i++) {
+      var value = script.values.toList()[i];
+      if (value.toString().isEmpty) {
+        verified = false;
+        throw ScriptException("Formato inválido!");
+      }
+    }
+    return verified;
   }
 }

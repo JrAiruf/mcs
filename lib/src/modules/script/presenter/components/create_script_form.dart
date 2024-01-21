@@ -15,26 +15,31 @@ class CreateScriptForm extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TextFieldLabel(label: "Nome do Script"),
-              AppTextField(
-                controller: controller.scriptName,
-              ),
-              const TextFieldLabel(label: "Comando Script"),
-              AppTextField(
-                controller: controller.scriptCommand,
-              ),
-              const SizedBox(height: 20),
-              AppButton(
-                onTap: controller.saveScript,
-                backgroundColor: AppThemes.primaryColor,
-                text: "Salvar Script",
-                primaryColor: AppThemes.contrastColor,
-              ),
-            ],
+          child: Form(
+            key: controller.createScriptKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextFieldLabel(label: "Nome do Script"),
+                AppTextField(
+                  controller: controller.scriptName,
+                  validator: fieldValidator,
+                ),
+                const TextFieldLabel(label: "Comando Script"),
+                AppTextField(
+                  controller: controller.scriptCommand,
+                  validator: fieldValidator,
+                ),
+                const SizedBox(height: 20),
+                AppButton(
+                  onTap: controller.saveScript,
+                  backgroundColor: AppThemes.primaryColor,
+                  text: "Salvar Script",
+                  primaryColor: AppThemes.contrastColor,
+                ),
+              ],
+            ),
           ),
         ),
       ),

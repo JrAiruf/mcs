@@ -14,7 +14,7 @@ Dialog appDialog(
       borderRadius: BorderRadius.circular(10),
     ),
     child: SizedBox(
-      height: height * 0.2,
+      height: height * 0.25,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -46,22 +46,64 @@ Dialog appDialog(
             children: [
               Expanded(
                 flex: 1,
-                child: AppButton(
-                  height: 40,
-                  backgroundColor: AppThemes.primaryColor,
-                  primaryColor: AppThemes.contrastColor,
-                  text: "SIM",
+                child: InkWell(
                   onTap: onAccept,
+                  child: Container(
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        right: BorderSide(
+                          width: 0.5,
+                          color: AppThemes.contrastColor,
+                        ),
+                      ),
+                      color: AppThemes.primaryColor,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                      ),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "SIM",
+                        style: TextStyle(
+                          color: AppThemes.contrastColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Expanded(
                 flex: 1,
-                child: AppButton(
-                  height: 40,
-                  backgroundColor: AppThemes.primaryColor,
-                  primaryColor: AppThemes.contrastColor,
-                  text: "NÃO",
+                child: InkWell(
                   onTap: onDismiss,
+                  child: Container(
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        left: BorderSide(
+                          width: 0.5,
+                          color: AppThemes.contrastColor,
+                        ),
+                      ),
+                      color: AppThemes.primaryColor,
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(10),
+                      ),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "NÃO",
+                        style: TextStyle(
+                          color: AppThemes.contrastColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],

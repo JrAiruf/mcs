@@ -103,8 +103,10 @@ void main() {
         () async {
           final result = await clientService.authenticate(AuthMockData.authMap);
           expect(result, isA<String>());
-          await clientService.saveScript(ScriptMockData.scriptMap);
-          final updateResult = await clientService.updateScript(ScriptMockData.modifiedScriptMap);
+          final creationResult = await clientService.saveScript(ScriptMockData.scriptMap);
+          final creationMap = jsonDecode(creationResult);
+          creationMap["description"] = "Script with description";
+          final updateResult = await clientService.updateScript(creationMap);
           final resultMap = jsonDecode(updateResult);
           expect(updateResult, isA<String>());
           expect(resultMap["name"], equals("Ativar North"));
@@ -126,14 +128,15 @@ void main() {
     "RemoveScript function should",
     () {
       test(
-        "access SSH server and modify the given script, and return it's data",
+        "access SSH server and remove the given script",
         () async {
           final result = await clientService.authenticate(AuthMockData.authMap);
           expect(result, isA<String>());
           final createdScript = await clientService.saveScript(ScriptMockData.scriptMap);
+          final mapScript = jsonDecode(createdScript);
           final removeResult = await clientService.removeScript(jsonDecode(createdScript));
           expect(removeResult, isA<String>());
-          expect(removeResult, equals("Script removido."));
+          expect(removeResult, equals("Script removido: ${mapScript["id"]}"));
         },
       );
       test(

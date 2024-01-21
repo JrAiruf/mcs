@@ -23,18 +23,20 @@ class _LoginFormState extends State<LoginForm> {
           Form(
             key: _controller.authKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const TextFieldLabel(label: "Username"),
                 AppTextField(
-                  label: "Username",
-                  onChanged: _controller.authEntity.setUsername,
+                  controller: _controller.username,
+                  validator: fieldValidator,
                 ),
-                const SizedBox(height: 25),
+                const TextFieldLabel(label: "Password"),
                 AppTextField(
+                    controller: _controller.password,
                     visible: !_controller.visiblePassword,
-                    label: "Password",
-                    onChanged: _controller.authEntity.setPassword,
                     passwordField: true,
-                    onTap: () {
+                    validator: fieldValidator,
+                    iconTap: () {
                       setState(
                         () {
                           _controller.visiblePassword = !_controller.visiblePassword;

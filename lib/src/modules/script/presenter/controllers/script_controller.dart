@@ -5,31 +5,42 @@ class ScriptController {
   final fetchScriptsListBloc = Modular.get<FetchScriptsListBloc>();
   final scriptBloc = Modular.get<ScriptBloc>();
   //PROPS
-  Script? script = Script();
+  late Script script;
+  //KEYS
+  final createScriptKey = GlobalKey<FormState>();
+  final updateScriptKey = GlobalKey<FormState>();
   //INPUTS
   final scriptName = TextEditingController();
   final scriptCommand = TextEditingController();
   final scriptDescription = TextEditingController();
   //FUNCTIONS
   saveScript() {
-    script?.setName(scriptName.text);
-    script?.setCommand(scriptCommand.text);
-    scriptBloc.add(CreateScriptEvent(script ?? Script()));
-    scriptName.clear();
-    scriptCommand.clear();
-    script = null;
+    createScriptKey.currentState?.validate();
+    if (createScriptKey.currentState!.validate()) {
+      script = Script();
+      createScriptKey.currentState?.save();
+      script.setName(scriptName.text);
+      script.setCommand(scriptCommand.text);
+      scriptBloc.add(CreateScriptEvent(script));
+      scriptName.clear();
+      scriptCommand.clear();
+      script = Script();
+    }
   }
 
   updateScript() {
-    script?.setDescription(scriptDescription.text);
-    scriptBloc.add(UpdateScriptEvent(script ?? Script()));
-    scriptDescription.clear();
-    script = null;
+    updateScriptKey.currentState?.validate();
+    if (updateScriptKey.currentState!.validate()) {
+      updateScriptKey.currentState?.save();
+      script.setDescription(scriptDescription.text);
+      scriptBloc.add(UpdateScriptEvent(script));
+      scriptDescription.clear();
+      script.setDescription("");
+    }
   }
 
   removeScript() {
-    scriptBloc.add(RemoveScriptEvent(script ?? Script()));
-    script = null;
+    scriptBloc.add(RemoveScriptEvent(script));
   }
 
   fetchScriptsList() => fetchScriptsListBloc.add(FetchScriptsListEvent());

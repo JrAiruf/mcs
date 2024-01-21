@@ -1,10 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Script {
+  String? id;
   String? name;
   String? command;
   String description;
 
   Script({
+    this.id,
     this.name,
     this.command,
     this.description = "",
@@ -29,6 +31,6 @@ class Script {
   void setDescription(String value) {
     if (value.isNotEmpty) {
       description = value;
-    } 
+    }
   }
 }
