@@ -7,7 +7,7 @@ class SSHClientService implements ISSHClientService {
   String _scriptsFile = "";
 
   @override
-  Future<String> runCommand(String command) {
+  Future<bool> executeScript(String command) async {
     throw UnimplementedError();
   }
 

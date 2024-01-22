@@ -15,6 +15,11 @@ final class ScriptDatasource implements IScriptDatasource {
   }
 
   @override
+  Future<bool> executeScript(Map<String, dynamic>? script) async {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<List> fetchScriptsList() async {
     try {
       final scriptsList = jsonDecode(await _service.fetchScriptsList()) as List;

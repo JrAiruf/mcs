@@ -4,6 +4,7 @@
 export 'dart:convert';
 export 'package:dartssh2/dartssh2.dart';
 export 'package:flutter_modular/flutter_modular.dart';
+export 'package:bloc_test/bloc_test.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:mocktail/mocktail.dart';
 //FLUTTER_LIBRARIES
