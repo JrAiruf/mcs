@@ -17,7 +17,7 @@ class ScriptTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         height: height,
-        width: MediaQuery.sizeOf(context).width * 0.44,
+        width: MediaQuery.sizeOf(context).width * 0.46,
         child: Center(
           child: Text(
             script.name ?? "",

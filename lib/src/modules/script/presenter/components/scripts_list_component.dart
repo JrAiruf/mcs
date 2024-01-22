@@ -9,6 +9,7 @@ class ScriptsListComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return BlocBuilder(
       bloc: controller.fetchScriptsListBloc,
       builder: (context, state) {
@@ -37,7 +38,7 @@ class ScriptsListComponent extends StatelessWidget {
         }
         if (state is FetchScriptsListSuccessState) {
           return SizedBox(
-            height: 350,
+            height: height * 0.54,
             child: Center(
               child: state.scripts.isEmpty
                   ? const Text(
@@ -46,20 +47,23 @@ class ScriptsListComponent extends StatelessWidget {
                         color: AppThemes.contrastColor,
                       ),
                     )
-                  : Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
-                      children: state.scripts
-                          .map(
-                            (script) => ScriptTile(
-                              script: script,
-                              height: height * 0.09,
-                              onTap: () {
-                                Modular.to.pushNamed('./script_page', arguments: script);
-                              },
-                            ),
-                          )
-                          .toList(),
+                  : GridView.builder(
+                      itemCount: state.scripts.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisExtent: height * 0.1,
+                        crossAxisSpacing: width * 0.02,
+                        mainAxisSpacing: height * 0.01,
+                      ),
+                      itemBuilder: (_, i) {
+                        final script = state.scripts[i];
+                        return ScriptTile(
+                          script: script,
+                          onTap: () {
+                            Modular.to.pushNamed('./script_page', arguments: script);
+                          },
+                        );
+                      },
                     ),
             ),
           );
