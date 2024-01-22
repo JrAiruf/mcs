@@ -32,6 +32,27 @@ void main() {
     },
   );
   group(
+    "ExecuteScript function should",
+    () {
+      test(
+        "call ssh service to execute the given script in ssh server",
+        () async {
+          when(() => service.executeScript(any())).thenAnswer((_) async => true);
+          final result = await datasource.executeScript({"name": "Outro Script", "command": "OUTRO_COMANDO","description":"Script's description"});
+          expect(result, isA<bool>());
+          expect(result, equals(true));
+        },
+      );
+      test(
+        "throw an ScriptException",
+        () async {
+          when(() => service.executeScript(any())).thenThrow(ScriptException("Não foi possível executar o script."));
+          expect(() async => await datasource.executeScript({}), throwsA(isA<ScriptException>()));
+        },
+      );
+    },
+  );
+  group(
     "FetchScriptsList function should",
     () {
       test(

@@ -37,6 +37,29 @@ void main() {
     },
   );
   group(
+    'ExecuteScript function should',
+    () {
+      test(
+        'call datasource to execute the current script',
+        () async {
+          when(() => datasource.executeScript(any())).thenAnswer((_) async => true);
+          final result = await repository.executeScript(ScriptMockData.entity);
+          expect(result.fold((l) => null, (r) => r), isA<bool>());
+          expect(result.fold((l) => null, (r) => r), equals(true));
+        },
+      );
+      test(
+        'return ScriptException',
+        () async {
+          when(() => datasource.executeScript(any())).thenThrow(ScriptException("Erro em executar script."));
+          final result = await repository.executeScript(ScriptMockData.entity);
+          expect(result.fold((l) => l, (r) => null), isA<ScriptException>());
+          expect(result.fold((l) => l.message, (r) => null), equals("Erro em executar script."));
+        },
+      );
+    },
+  );
+  group(
     "FetchScriptsList function should",
     () {
       test(

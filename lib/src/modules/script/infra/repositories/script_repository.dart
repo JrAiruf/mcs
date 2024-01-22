@@ -15,9 +15,13 @@ final class ScriptRepository implements IScriptRepository {
   }
 
   @override
-  Future<Either<ScriptException, bool>> executeScript(Script? script) {
-    // TODO: implement executeScript
-    throw UnimplementedError();
+  Future<Either<ScriptException, bool>> executeScript(Script? script) async {
+     try {
+      final result = await _datasource.executeScript(ScriptAdapter.toMap(script!));
+      return right(result);
+    } on BaseException catch (e) {
+      return left(ScriptException(e.message));
+    }
   }
 
   @override
