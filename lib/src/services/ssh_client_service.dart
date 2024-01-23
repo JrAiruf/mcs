@@ -80,7 +80,6 @@ class SSHClientService implements ISSHClientService {
           currentScript["name"] = script["name"];
           currentScript["command"] = script["command"];
           currentScript["description"] = script["description"];
-          scriptsMapsList.clear();
           scriptsMapsList.add(currentScript);
           final convertedListToUpdateServer = jsonEncode(scriptsMapsList);
           await _client.execute("echo '$convertedListToUpdateServer' > $_scriptsFile");
