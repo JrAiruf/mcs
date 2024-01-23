@@ -42,10 +42,11 @@ void main() {
       test(
         'call datasource to execute the current script',
         () async {
-          when(() => datasource.executeScript(any())).thenAnswer((_) async => true);
+          when(() => datasource.executeScript(any())).thenAnswer((_) async => ScriptMockData.scriptMap);
           final result = await repository.executeScript(ScriptMockData.entity);
-          expect(result.fold((l) => null, (r) => r), isA<bool>());
-          expect(result.fold((l) => null, (r) => r), equals(true));
+          expect(result.fold((l) => null, (r) => r), isA<Script>());
+          expect(result.fold((l) => null, (r) => r.name) != null, equals(true));
+          expect(result.fold((l) => null, (r) => r.activated), equals(false));
         },
       );
       test(

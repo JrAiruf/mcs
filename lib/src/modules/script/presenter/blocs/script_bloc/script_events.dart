@@ -7,6 +7,10 @@ final class CreateScriptEvent extends ScriptEvents {
   final Script script;
   CreateScriptEvent(this.script);
 }
+final class ExecuteScriptEvent extends ScriptEvents {
+  final Script script;
+  ExecuteScriptEvent(this.script);
+}
 
 final class UpdateScriptEvent extends ScriptEvents {
   final Script script;

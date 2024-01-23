@@ -37,7 +37,7 @@ void main() {
         () async {
           final authResult = await clientService.authenticate(AuthMockData.authMap);
           expect(authResult, isA<String>());
-          final result = await clientService.saveScript(ScriptMockData.scriptMap);
+          final result = await clientService.saveScript(ScriptMockData.creationScriptMap);
           final resultMap = jsonDecode(result);
           expect(result, isA<String>());
           expect(resultMap["name"], equals("Ativar North"));
@@ -103,8 +103,10 @@ void main() {
         () async {
           final result = await clientService.authenticate(AuthMockData.authMap);
           expect(result, isA<String>());
-          final creationResult = await clientService.saveScript(ScriptMockData.scriptMap);
+          final creationResult = await clientService.saveScript(ScriptMockData.creationScriptMap);
           final creationMap = jsonDecode(creationResult);
+          final currentList = await clientService.fetchScriptsList();
+          int listAmount = currentList.length;
           creationMap["description"] = "Script with description";
           final updateResult = await clientService.updateScript(creationMap);
           final resultMap = jsonDecode(updateResult);
@@ -112,6 +114,7 @@ void main() {
           expect(resultMap["name"], equals("Ativar North"));
           expect(resultMap["command"], equals("NORTH_ATIVA"));
           expect(resultMap["description"], equals("Script with description"));
+          expect(listAmount == currentList.length, equals(true));
         },
       );
       test(

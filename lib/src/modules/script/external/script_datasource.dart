@@ -15,9 +15,9 @@ final class ScriptDatasource implements IScriptDatasource {
   }
 
   @override
-  Future<bool> executeScript(Map<String, dynamic>? script) async {
-     try {
-      return await _service.executeScript(script);
+  Future<Map<String, dynamic>> executeScript(Map<String, dynamic>? script) async {
+    try {
+      return jsonDecode(await _service.executeScript(script)) as Map<String, dynamic>;
     } on BaseException {
       rethrow;
     }

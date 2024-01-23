@@ -18,6 +18,11 @@ final class CreateScriptSuccessState extends ScriptStates {
 
   CreateScriptSuccessState(this.script);
 }
+final class ExecuteScriptSuccessState extends ScriptStates {
+  final Script script;
+
+  ExecuteScriptSuccessState(this.script);
+}
 
 final class UpdateScriptSuccessState extends ScriptStates {
   final Script script;

@@ -1,5 +1,4 @@
 import 'package:mcs/src/app_imports.dart';
-import 'package:mcs/src/shared/components/app_dialog.dart';
 
 class AuthController {
 //BLOCS

@@ -31,11 +31,21 @@ class _ScriptPageState extends State<ScriptPage> {
               children: [
                 ScriptDescriptionComponent(controller: _controller),
                 SizedBox(height: height * 0.045),
-                AppButton(
-                  backgroundColor: AppThemes.secondaryColor,
-                  text: "Executar Script",
-                  onTap: () => _controller.executeScript(context),
-                  primaryColor: AppThemes.contrastColor,
+                BlocConsumer(
+                  bloc: _controller.scriptBloc,
+                  listener: (_, state) {
+                    if (state is ExecuteScriptSuccessState) {
+                      Modular.to.pop();
+                    }
+                  },
+                  builder: (context, state) {
+                    return AppButton(
+                      backgroundColor: AppThemes.secondaryColor,
+                      text: "Executar Script",
+                      onTap: () => _controller.executeScript(context),
+                      primaryColor: AppThemes.contrastColor,
+                    );
+                  },
                 ),
                 const SizedBox(height: 20),
                 BlocConsumer(

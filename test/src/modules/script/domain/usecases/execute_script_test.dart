@@ -1,5 +1,4 @@
 import 'package:mcs/src/app_imports.dart';
-import 'package:mcs/src/modules/script/domain/usecases/execute_script.dart';
 
 void main() {
   late IScriptRepository repository;
@@ -16,12 +15,13 @@ void main() {
       test(
         "execute the selected script in server",
         () async {
-          when(() => repository.executeScript(any())).thenAnswer((_) async => const Right(true));
+          when(() => repository.executeScript(any())).thenAnswer((_) async => Right(ScriptMockData.entity));
           final result = await executeScript(
             Script(name: "Ativar North", command: "NORTH_ATIVA", description: "descrição do script"),
           );
-          expect(result.fold((l) => null, (r) => r), isA<bool>());
-          expect(result.fold((l) => null, (r) => r), equals(true));
+          expect(result.fold((l) => null, (r) => r), isA<Script>());
+          expect(result.fold((l) => null, (r) => r.name) != null, equals(true));
+          expect(result.fold((l) => null, (r) => r.command) != null, equals(true));
         },
       );
       test(

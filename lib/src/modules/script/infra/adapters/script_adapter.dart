@@ -6,12 +6,14 @@ class ScriptAdapter {
   String? name;
   String? command;
   String? description;
+  bool? activated;
 
   ScriptAdapter({
     this.id,
     this.name,
     this.command,
     this.description,
+    this.activated,
   });
 
   static Script fromMap(Map<String, dynamic> map) {
@@ -20,6 +22,7 @@ class ScriptAdapter {
       name: map['name'],
       command: map['command'],
       description: map['description'],
+      activated: map['activated'],
     );
   }
 
@@ -29,6 +32,7 @@ class ScriptAdapter {
       'name': entity.name,
       'command': entity.command,
       'description': entity.description,
+      'activated': entity.activated,
     };
   }
 }

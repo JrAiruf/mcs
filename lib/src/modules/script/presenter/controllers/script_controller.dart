@@ -17,7 +17,7 @@ class ScriptController {
   saveScript() {
     createScriptKey.currentState?.validate();
     if (createScriptKey.currentState!.validate()) {
-      script = Script();
+      script = Script(activated: false);
       createScriptKey.currentState?.save();
       script.setName(scriptName.text);
       script.setCommand(scriptCommand.text);
@@ -67,7 +67,7 @@ class ScriptController {
             "Deseja Executar este Script?",
             "O script ${script.name} será executado aplicando as ações informadas na descrição",
             () {
-              scriptBloc.add(RemoveScriptEvent(script));
+              scriptBloc.add(ExecuteScriptEvent(script));
               Navigator.of(context).pop();
             },
             () {

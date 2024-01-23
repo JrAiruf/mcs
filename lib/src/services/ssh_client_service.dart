@@ -7,15 +7,20 @@ class SSHClientService implements ISSHClientService {
   String _scriptsFile = "";
 
   @override
-  Future<bool> executeScript(Map<String, dynamic>? script) async {
-    throw UnimplementedError();
+  Future<String> executeScript(Map<String, dynamic>? script) async {
+    try {
+      final sshConnection = await _client.run("${script?["command"]}");
+      return utf8.decode(sshConnection);
+    } catch (e) {
+      throw ScriptException("Não foi possível executar o script ${script?["name"]}");
+    }
   }
 
   @override
   Future<String> authenticate(Map<String, dynamic>? authMap) async {
     try {
       _client = SSHClient(
-        await SSHSocket.connect(ipServer, 22),
+        await SSHSocket.connect("177.85.104.152", 22),
         username: authMap?["username"],
         onPasswordRequest: () => authMap?["password"],
         keepAliveInterval: const Duration(minutes: 30),
@@ -75,7 +80,10 @@ class SSHClientService implements ISSHClientService {
           currentScript["name"] = script["name"];
           currentScript["command"] = script["command"];
           currentScript["description"] = script["description"];
-          scriptsDataList.stdin.add(utf8.encode(jsonEncode(currentScript)));
+          scriptsMapsList.clear();
+          scriptsMapsList.add(currentScript);
+          final convertedListToUpdateServer = jsonEncode(scriptsMapsList);
+          await _client.execute("echo '$convertedListToUpdateServer' > $_scriptsFile");
           scriptJsonMap = jsonEncode(currentScript);
         } else {
           throw ScriptException("Não foi possível atualizar o script.");

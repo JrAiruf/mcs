@@ -4,12 +4,14 @@ class Script {
   String? name;
   String? command;
   String description;
+  bool? activated;
 
   Script({
     this.id,
     this.name,
     this.command,
     this.description = "",
+    this.activated,
   });
 
   void setName(String? value) {
