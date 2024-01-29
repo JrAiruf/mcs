@@ -9,6 +9,7 @@ export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:mocktail/mocktail.dart';
 //FLUTTER_LIBRARIES
 export 'package:flutter/material.dart';
+export 'dart:io';
 export 'package:flutter_test/flutter_test.dart';
 //MODULES_IMPORTS
 export 'package:mcs/src/app_widget.dart';

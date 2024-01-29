@@ -36,12 +36,16 @@ void main() {
         "save a single script in SSH server and return data corresponding to the script saved",
         () async {
           final authResult = await clientService.authenticate(AuthMockData.authMap);
+          final currentList = await clientService.fetchScriptsList();
+          var currentListLength = currentList.length;
           expect(authResult, isA<String>());
           final result = await clientService.saveScript(ScriptMockData.creationScriptMap);
           final resultMap = jsonDecode(result);
+          final updatedList = await clientService.fetchScriptsList();
           expect(result, isA<String>());
           expect(resultMap["name"], equals("Ativar North"));
           expect(resultMap["command"], equals("NORTH_ATIVA"));
+          expect(currentListLength != updatedList.length, equals(true));
         },
       );
       test(
@@ -139,7 +143,7 @@ void main() {
           final mapScript = jsonDecode(createdScript);
           final removeResult = await clientService.removeScript(jsonDecode(createdScript));
           expect(removeResult, isA<String>());
-          expect(removeResult, equals("Script removido: ${mapScript["id"]}"));
+          expect(removeResult, equals("Script removido: ${mapScript["name"]}"));
         },
       );
       test(

@@ -17,7 +17,7 @@ class ScriptController {
   saveScript() {
     createScriptKey.currentState?.validate();
     if (createScriptKey.currentState!.validate()) {
-      script = Script(activated: false);
+      script = Script();
       createScriptKey.currentState?.save();
       script.setName(scriptName.text);
       script.setCommand(scriptCommand.text);

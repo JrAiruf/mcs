@@ -11,7 +11,6 @@ abstract class ScriptMockData {
     name: "Ativar North",
     command: "NORTH_ATIVA",
     description: "Script with description",
-    activated: true,
   );
   static final _scriptEntity0 = Script(
     id: "7f2cd6c0-b855-11ee-bc9e-93b2374d10ad",
@@ -28,7 +27,6 @@ abstract class ScriptMockData {
     "name": "Ativar North",
     "command": "NORTH_ATIVA",
     "description": "test",
-    "activated": false,
   };
   static final creationScriptMap = {
     "name": "Ativar North",
@@ -53,7 +51,6 @@ abstract class ScriptMockData {
       "name": "Ativar North",
       "command": "NORTH_ATIVA",
       "description": "ScriptDescription",
-      "activated": false,
     },
   );
   static final modifiedScriptJsonMap = jsonEncode(

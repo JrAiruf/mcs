@@ -41,7 +41,6 @@ void main() {
           final result = await datasource.executeScript({"name": "Outro Script", "command": "OUTRO_COMANDO", "description": "Script's description"});
           expect(result, isA<Map<String, dynamic>>());
           expect(result["id"], equals("7f2cd6c0-b855-11ee-bc9e-93b2374d10ad"));
-          expect(result["activated"], equals(false));
         },
       );
       test(

@@ -57,7 +57,6 @@ class ScriptsListComponent extends StatelessWidget {
                       ),
                       itemBuilder: (_, i) {
                         final script = state.scripts[i];
-                        print(script.activated);
                         return ScriptTile(
                           script: script,
                           onTap: () {

@@ -19,14 +19,22 @@ dependencies:
   dartz: ^0.10.1
   shared_preferences: ^2.2.2
   uuid: ^3.0.7
+  rsa_encrypt: ^2.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+    
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
   mocktail: ^1.0.2
   bloc_test: ^9.1.5
+
+flutter_icons:
+  android: true
+  image_path: "assets/logo_icon.png"
+  adaptative_icon_background: "#ffffff"
+  adaptative_icon_foreground: "assets/logo_icon_ad.png"
 
 flutter:
   uses-material-design: true

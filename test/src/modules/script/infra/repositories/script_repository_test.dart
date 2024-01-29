@@ -46,7 +46,6 @@ void main() {
           final result = await repository.executeScript(ScriptMockData.entity);
           expect(result.fold((l) => null, (r) => r), isA<Script>());
           expect(result.fold((l) => null, (r) => r.name) != null, equals(true));
-          expect(result.fold((l) => null, (r) => r.activated), equals(false));
         },
       );
       test(
