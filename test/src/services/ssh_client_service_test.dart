@@ -20,11 +20,28 @@ void main() {
       test(
         "thrown an AuthException due unexisting user",
         () async {
-          final authMap = {
-            "username": "app",
-            "password": "2nq25n17",
-          };
-          expect(() async => await clientService.authenticate(authMap), throwsA(isA<AuthException>()));
+          expect(() async => await clientService.authenticate({}), throwsA(isA<AuthException>()));
+        },
+      );
+    },
+  );
+  group(
+    "Execute Script function should",
+    () {
+      test(
+        "access SSH server, authenticate the user and return data corresponding to the script being executed",
+        () async {
+          await clientService.authenticate(AuthMockData.authMap);
+          final result = await clientService.executeScript(ScriptMockData.executeScriptMap);
+          final jsonResult = jsonDecode(result);
+          expect(result, isA<String>());
+          expect(jsonResult["id"] != null, equals(true));
+        },
+      );
+      test(
+        "thrown an AuthException due unexisting user",
+        () async {
+          expect(() async => await clientService.authenticate({}), throwsA(isA<AuthException>()));
         },
       );
     },

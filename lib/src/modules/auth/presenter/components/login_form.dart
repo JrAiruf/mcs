@@ -12,6 +12,12 @@ class LoginForm extends StatefulWidget {
 final _controller = Modular.get<AuthController>();
 
 class _LoginFormState extends State<LoginForm> {
+
+@override
+  void initState() {
+    super.initState();
+    _controller.authenticateWithSavedData(context);
+  }
   @override
   Widget build(BuildContext context) {
     return SizedBox(

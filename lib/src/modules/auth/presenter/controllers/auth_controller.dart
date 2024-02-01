@@ -19,10 +19,29 @@ class AuthController {
     authKey.currentState!.save();
     if (authKey.currentState!.validate()) {
       authBloc.add(AuthEvent(authEntity));
+      saveUserdataLocally(username.text, password.text);
       username.clear();
       password.clear();
     } else {
       authErrorSnackbar("Dados inválidos! Por favor preencha os campos.");
+    }
+  }
+
+  void authenticateWithSavedData(BuildContext context) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final storedUsername = sharedPreferences.getString("username");
+    final storedPassword = sharedPreferences.getString("password");
+    if (storedUsername != null && storedPassword != null) {
+      authEntity.setUsername(storedUsername);
+      authEntity.setPassword(storedPassword);
+      authBloc.add(AuthEvent(authEntity));
+      authBloc.stream.listen(
+        (state) {
+          if (state is AuthFailureState) {
+            authSnackbar(context, state.message);
+          }
+        },
+      );
     }
   }
 
@@ -37,6 +56,7 @@ class AuthController {
             () {
               authBloc.add(SignOutEvent());
               Navigator.of(context).pop();
+              clearUserdata();
             },
             () {
               Navigator.of(context).pop();
@@ -44,6 +64,18 @@ class AuthController {
           );
         });
     authEntity = AuthEntity();
+  }
+
+  void saveUserdataLocally(String usernameInShared, String passwordInShared) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString('username', usernameInShared);
+    sharedPreferences.setString('password', passwordInShared);
+  }
+
+  void clearUserdata() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.remove('username');
+    sharedPreferences.remove('password');
   }
 
   authSnackbar(BuildContext context, String message) {

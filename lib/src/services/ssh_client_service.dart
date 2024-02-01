@@ -10,9 +10,11 @@ class SSHClientService implements ISSHClientService {
   Future<String> executeScript(Map<String, dynamic>? script) async {
     try {
       String executionResult = "";
-      if (_authFile.isNotEmpty) {
-        final sshConnection = await _client.run("${script?["command"]}");
-        executionResult = utf8.decode(sshConnection);
+      final getAuthDataResult = await _client.execute("cat authData.txt");
+      final result = utf8.decode(await getAuthDataResult.stdout.asBroadcastStream().first);
+      if (result.isNotEmpty) {
+        await _client.execute("${script?["command"]}");
+        executionResult = jsonEncode(script);
         return executionResult;
       }
       return executionResult;
@@ -24,16 +26,25 @@ class SSHClientService implements ISSHClientService {
   @override
   Future<String> authenticate(Map<String, dynamic>? authMap) async {
     try {
+      String userData = "";
       _client = SSHClient(
         await SSHSocket.connect(ipServer, 22),
         username: authMap?["username"],
         onPasswordRequest: () => authMap?["password"],
         keepAliveInterval: const Duration(minutes: 30),
       );
-      final userData = jsonEncode(authMap);
-      _filePrefix = authMap?["username"];
-      _authFile = userData;
-      _scriptsFile = "$_filePrefix.scripts.txt";
+      final authJson = jsonEncode(authMap);
+      final authData = base64.encode(authJson.codeUnits);
+      await _client.execute("echo '$authData' > authData.txt");
+      final executionResult = await _client.execute("cat authData.txt");
+      final authResult = utf8.decode(await executionResult.stdout.asBroadcastStream().first);
+      if (authResult.isNotEmpty) {
+        userData = jsonEncode(authMap);
+        _filePrefix = authMap?["username"];
+        _authFile = userData;
+        _scriptsFile = "$_filePrefix.scripts.txt";
+        return userData;
+      }
       return userData;
     } catch (e) {
       throw AuthException("Não foi possível realizar o login. ${e.toString()}");
@@ -113,7 +124,8 @@ class SSHClientService implements ISSHClientService {
   Future<bool> signOut() async {
     try {
       _authFile = "";
-      return await signedOutUser();
+      _client.close();
+      return _authFile.isEmpty;
     } catch (e) {
       throw AuthException("Algum erro ocorreu.");
     }
@@ -149,13 +161,6 @@ class SSHClientService implements ISSHClientService {
           (value) async => await value.stdout.asyncMap((event) => event).isEmpty,
         );
     return nonExistingValue;
-  }
-
-  Future<bool> signedOutUser() async {
-    final nonExistingUser = await _client.execute("cat $_authFile").then(
-          (value) async => await value.stdout.asyncMap((event) => event).isEmpty,
-        );
-    return nonExistingUser;
   }
 
   bool scriptVerifier(Map script) {

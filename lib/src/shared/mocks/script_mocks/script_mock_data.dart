@@ -28,6 +28,12 @@ abstract class ScriptMockData {
     "command": "NORTH_ATIVA",
     "description": "test",
   };
+  static final executeScriptMap = {
+    "id": "7f2cd6c0-b855-11ee-bc9e-93b2374d10ad",
+    "name": "BKP ATIVA",
+    "command": "/scripts/BKP_ATIVA",
+    "description": "Ativar o tráfego via BKP",
+  };
   static final creationScriptMap = {
     "name": "Ativar North",
     "command": "NORTH_ATIVA",
