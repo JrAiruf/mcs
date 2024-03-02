@@ -82,7 +82,7 @@ class ScriptController {
   scriptsSnackbar(BuildContext context, String message) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        backgroundColor: AppThemes.secondaryColor,
+        backgroundColor: AppThemes.activeColor,
         content: Center(
           child: Text(
             message,

@@ -11,6 +11,7 @@ class AppModule extends Module {
   @override
   void exportedBinds(Injector i) {
     super.binds(i);
-    i.addSingleton<ISSHClientService>(SSHClientService.new);
+    i.addSingleton<ISSHClientService>(AppSSH.new);
+    // i.addSingleton<ISSHClientService>(SSHClientService.new);
   }
 }

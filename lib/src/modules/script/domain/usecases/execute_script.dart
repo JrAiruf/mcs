@@ -5,5 +5,5 @@ final class ExecuteScript {
 
   final IScriptRepository _repository;
 
-  Future<Either<ScriptException, Script>> call(Script script) async => await _repository.executeScript(script);
+  Future<Either<ScriptException, ScriptExecution>> call(Script script) async => await _repository.executeScript(script);
 }

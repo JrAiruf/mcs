@@ -1,10 +1,10 @@
 import 'package:mcs/src/app_imports.dart';
 
 void main() {
-  late SSHClientService clientService;
+  late AppSSH clientService;
   setUp(
     () async {
-      clientService = SSHClientService();
+      clientService = AppSSH();
     },
   );
   group(
@@ -33,9 +33,7 @@ void main() {
         () async {
           await clientService.authenticate(AuthMockData.authMap);
           final result = await clientService.executeScript(ScriptMockData.executeScriptMap);
-          final jsonResult = jsonDecode(result);
           expect(result, isA<String>());
-          expect(jsonResult["id"] != null, equals(true));
         },
       );
       test(

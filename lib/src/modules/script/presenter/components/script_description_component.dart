@@ -2,7 +2,7 @@
 import 'package:mcs/src/app_imports.dart';
 
 class ScriptDescriptionComponent extends StatefulWidget {
-  const ScriptDescriptionComponent({Key? key, required this.controller}) : super(key: key);
+  const   ScriptDescriptionComponent({Key? key, required this.controller}) : super(key: key);
   final ScriptController controller;
   @override
   State<ScriptDescriptionComponent> createState() => _ScriptDescriptionComponentState();

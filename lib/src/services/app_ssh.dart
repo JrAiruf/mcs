@@ -1,7 +1,10 @@
-/* import 'package:mcs/src/app_imports.dart';
+import 'dart:developer';
 
-class SSHClientService implements ISSHClientService {
+import 'package:mcs/src/app_imports.dart';
+
+class AppSSH implements ISSHClientService {
   late SSHClient _client;
+
   String _filePrefix = "";
   String _authFile = "";
   String _scriptsFile = "";
@@ -9,10 +12,13 @@ class SSHClientService implements ISSHClientService {
   @override
   Future<String> executeScript(Map<String, dynamic>? script) async {
     try {
-      String executionResult = "";
-      final commandoResult = await _client.execute("${script!["command"]}");
-      executionResult = utf8.decode(await commandoResult.stdout.first);
-      return executionResult;
+      String? executionResult = "";
+      if (_authFile.isNotEmpty) {
+        await _client.execute(script?["command"]) ?? "";
+        executionResult = await _client.execute("yes") ?? "";
+        log(executionResult);
+      }
+      return jsonEncode(script);
     } catch (e) {
       throw ScriptException("Não foi possível executar o script ${script?["name"]}");
     }
@@ -23,15 +29,17 @@ class SSHClientService implements ISSHClientService {
     try {
       String userData = "";
       _client = SSHClient(
-        await SSHSocket.connect(ipServer, 22),
+        host: ipServer,
+        port: 22,
         username: authMap?["username"],
-        onPasswordRequest: () => authMap?["password"],
+        passwordOrKey: authMap?["password"],
       );
+      await _client.connect();
       final authJson = jsonEncode(authMap);
       final authData = base64.encode(authJson.codeUnits);
       await _client.execute("echo '$authData' > authData.txt");
       final executionResult = await _client.execute("cat authData.txt");
-      final authResult = utf8.decode(await executionResult.stdout.asBroadcastStream().first);
+      final authResult = utf8.decode(executionResult!.codeUnits);
       if (authResult.isNotEmpty) {
         userData = jsonEncode(authMap);
         _filePrefix = authMap?["username"];
@@ -49,19 +57,19 @@ class SSHClientService implements ISSHClientService {
   Future<String> saveScript(Map<String, dynamic>? script) async {
     try {
       String scriptJsonMap = "";
-      final userData = await _client.run("cat $_authFile");
-      final jsonUserData = utf8.decode(userData);
+      final userData = await _client.execute("cat authData.txt");
+      final jsonUserData = utf8.decode(userData!.codeUnits);
       if (jsonUserData.isNotEmpty) {
         final scriptsListExist = await nullScriptsList();
         if (scriptsListExist) {
-          await _client.run("echo '[]' > $_scriptsFile");
+          await _client.execute("echo '[]' > $_scriptsFile");
         }
-        final scriptsDataList = await _client.run("cat $_scriptsFile");
-        final scriptsMapsList = jsonDecode(utf8.decode(scriptsDataList)) as List;
+        final scriptsDataList = await _client.execute("cat $_scriptsFile");
+        final scriptsMapsList = jsonDecode(scriptsDataList ?? "[]") as List;
         script?["id"] = const Uuid().v1();
         scriptsMapsList.insert(0, script);
         final convertedListToUpdateServer = jsonEncode(scriptsMapsList);
-        await _client.run("echo '$convertedListToUpdateServer' > $_scriptsFile");
+        await _client.execute("echo '$convertedListToUpdateServer' > $_scriptsFile");
         scriptJsonMap = jsonEncode(scriptsMapsList.first);
         return scriptJsonMap;
       }
@@ -77,8 +85,8 @@ class SSHClientService implements ISSHClientService {
       String scriptJsonMap = "";
       if (_authFile.isNotEmpty) {
         if (scriptVerifier(script!)) {
-          final scriptsDataList = await _client.run("cat $_scriptsFile");
-          final scriptsJsonList = utf8.decode(scriptsDataList);
+          final scriptsDataList = await _client.execute("cat $_scriptsFile");
+          final scriptsJsonList = scriptsDataList ?? "[]";
           final scriptsMapsList = jsonDecode(scriptsJsonList) as List;
           final currentScript = scriptsMapsList.firstWhere((serverScript) => serverScript["id"] == script["id"]);
           currentScript["name"] = script["name"];
@@ -87,8 +95,8 @@ class SSHClientService implements ISSHClientService {
           scriptsMapsList.removeWhere((serverScript) => serverScript["id"] == script["id"]);
           scriptsMapsList.add(currentScript);
           final convertedListToUpdateServer = jsonEncode(scriptsMapsList);
-          await _client.run("rm $_scriptsFile");
-          await _client.run("echo '$convertedListToUpdateServer' > $_scriptsFile");
+          await _client.execute("rm $_scriptsFile");
+          await _client.execute("echo '$convertedListToUpdateServer' > $_scriptsFile");
           scriptJsonMap = jsonEncode(currentScript);
         } else {
           throw ScriptException("Não foi possível atualizar o script.");
@@ -106,7 +114,7 @@ class SSHClientService implements ISSHClientService {
       String scriptsJsonList = "";
       if (_authFile.isNotEmpty) {
         final scriptsDataList = await _client.execute("cat $_scriptsFile");
-        scriptsJsonList = utf8.decode(await scriptsDataList.stdout.asBroadcastStream().first);
+        scriptsJsonList = scriptsDataList ?? "[]";
       }
       return scriptsJsonList;
     } catch (e) {
@@ -118,7 +126,7 @@ class SSHClientService implements ISSHClientService {
   Future<bool> signOut() async {
     try {
       _authFile = "";
-      _client.close();
+      _client.disconnect();
       return _authFile.isEmpty;
     } catch (e) {
       throw AuthException("Algum erro ocorreu.");
@@ -131,7 +139,7 @@ class SSHClientService implements ISSHClientService {
       String operationResult = "";
       if (_authFile.isNotEmpty) {
         final scriptsDataList = await _client.execute("cat $_scriptsFile");
-        final scriptsJsonList = utf8.decode(await scriptsDataList.stdout.asBroadcastStream().first);
+        final scriptsJsonList = scriptsDataList ?? "[]";
         final scriptsMapsList = jsonDecode(scriptsJsonList) as List;
         if (script != null) {
           var currentScript = scriptsMapsList.firstWhere((serverScript) => serverScript["id"] == script["id"]);
@@ -152,7 +160,7 @@ class SSHClientService implements ISSHClientService {
 
   Future<bool> nullScriptsList() async {
     final nonExistingValue = await _client.execute("cat $_scriptsFile").then(
-          (value) async => await value.stdout.asyncMap((event) => event).isEmpty,
+          (value) => value!.isEmpty,
         );
     return nonExistingValue;
   }
@@ -169,4 +177,3 @@ class SSHClientService implements ISSHClientService {
     return verified;
   }
 }
- */

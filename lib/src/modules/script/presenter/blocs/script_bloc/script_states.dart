@@ -7,6 +7,8 @@ final class ScriptInitialState extends ScriptStates {}
 
 final class ScriptLoadingState extends ScriptStates {}
 
+final class ScriptExecutionLoadingState extends ScriptStates {}
+
 final class ScriptFailureState extends ScriptStates {
   final String message;
 
@@ -18,10 +20,11 @@ final class CreateScriptSuccessState extends ScriptStates {
 
   CreateScriptSuccessState(this.script);
 }
-final class ExecuteScriptSuccessState extends ScriptStates {
-  final Script script;
 
-  ExecuteScriptSuccessState(this.script);
+final class ExecuteScriptSuccessState extends ScriptStates {
+  final ScriptExecution scriptExecution;
+
+  ExecuteScriptSuccessState(this.scriptExecution);
 }
 
 final class UpdateScriptSuccessState extends ScriptStates {

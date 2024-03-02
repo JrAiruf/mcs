@@ -15,13 +15,13 @@ void main() {
       test(
         "execute the selected script in server",
         () async {
-          when(() => repository.executeScript(any())).thenAnswer((_) async => Right(ScriptMockData.entity));
+          when(() => repository.executeScript(any())).thenAnswer((_) async => Right(ScriptMockData.executionScript));
           final result = await executeScript(
             Script(name: "Ativar North", command: "NORTH_ATIVA", description: "descrição do script"),
           );
-          expect(result.fold((l) => null, (r) => r), isA<Script>());
-          expect(result.fold((l) => null, (r) => r.name) != null, equals(true));
-          expect(result.fold((l) => null, (r) => r.command) != null, equals(true));
+          expect(result.fold((l) => null, (r) => r), isA<ScriptExecution>());
+          expect(result.fold((l) => null, (r) => r.script.name) != null, equals(true));
+          expect(result.fold((l) => null, (r) => r.script.command) != null, equals(true));
         },
       );
       test(

@@ -30,7 +30,7 @@ class ScriptBloc extends Bloc<ScriptEvents, ScriptStates> {
   }
 
   _mapExecuteScriptEventToState(ExecuteScriptEvent event, Emitter<ScriptStates> state) async {
-    state(ScriptLoadingState());
+    state(ScriptExecutionLoadingState ());
     final result = await _executeScript(event.script);
     result.fold(
       (left) => state(ScriptFailureState(left.message)),

@@ -2,7 +2,9 @@
 
 //PACKAGES_USAGE
 export 'dart:convert';
-export 'package:dartssh2/dartssh2.dart';
+// export 'package:dartssh2/dartssh2.dart';
+export 'package:ssh2/ssh2.dart';
+export 'package:mcs/src/services/app_ssh.dart';
 export 'package:flutter_modular/flutter_modular.dart';
 export 'package:bloc_test/bloc_test.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';

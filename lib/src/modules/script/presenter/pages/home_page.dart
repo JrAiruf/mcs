@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
       }
       if (state is ExecuteScriptSuccessState) {
         _controller.fetchScriptsList();
+        _controller.scriptsSnackbar(context, "${state.scriptExecution.script.name} executado com sucesso!");
       }
       if (state is RemoveScriptSuccessState) {
         _controller.fetchScriptsList();

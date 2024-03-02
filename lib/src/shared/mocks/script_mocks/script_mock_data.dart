@@ -6,6 +6,11 @@ abstract class ScriptMockData {
     name: "Ativar North",
     command: "NORTH_ATIVA",
   );
+  static final executionScript = ScriptExecution(
+    script: entity,
+    executionLog: "spawn 177.83.34.255@escambau",
+  );
+
   static final modifiedEntity = Script(
     id: "7f2cd6c0-b855-11ee-bc9e-93b2374d10ad",
     name: "Ativar North",
@@ -27,6 +32,10 @@ abstract class ScriptMockData {
     "name": "Ativar North",
     "command": "NORTH_ATIVA",
     "description": "test",
+  };
+  static final executionScriptMap = {
+    "script": scriptMap,
+    "executionLog": "Ativar North",
   };
   static final executeScriptMap = {
     "id": "7f2cd6c0-b855-11ee-bc9e-93b2374d10ad",
